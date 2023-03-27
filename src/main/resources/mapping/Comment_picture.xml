@@ -3,5 +3,20 @@
 
 <mapper namespace="com.graduationproject.orderingsys.Mapper.Comment_pictureMapper">
 
+    <select id="queryCommentPicByOrderID" resultType="com.graduationproject.orderingsys.DAO.Comment_picture">
+        select * from  comment_picture where order_ID=#{order_ID};
+    </select>
+
+    <insert id="addCommentPic" parameterType="java.util.List">
+        insert into  comment_picture(order_ID,picture_address)
+        values 
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.order_ID},#{item.picture_address})
+        </foreach>
+    </insert>
+
+    <delete id="delCommentPicByOrderID">
+        delete from comment_picture where order_ID = #{order_ID};
+    </delete>
 
 </mapper>

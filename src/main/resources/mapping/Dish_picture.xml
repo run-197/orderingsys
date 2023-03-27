@@ -3,5 +3,20 @@
 
 <mapper namespace="com.graduationproject.orderingsys.Mapper.Dish_pictureMapper">
 
+    <select id="queryDishPicByDishID" resultType="com.graduationproject.orderingsys.DAO.Dish_picture">
+        select * from  dish_picture where dish_ID=#{dish_ID};
+    </select>
+
+    <insert id="addDishPic" parameterType="java.util.List">
+        insert into  dish_picture(dish_ID,picture_address)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.dish_ID},#{item.picture_address})
+        </foreach>
+    </insert>
+
+    <delete id="delDishPicByDishID">
+        delete from dish_picture where dish_ID = #{dish_ID};
+    </delete>
 
 </mapper>

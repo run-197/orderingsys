@@ -3,5 +3,29 @@
 
 <mapper namespace="com.graduationproject.orderingsys.Mapper.DishMapper">
 
+    <select id="queryDish" resultType="com.graduationproject.orderingsys.DAO.Dish">
+        select * from  dish;
+    </select>
 
+    <select id="queryDishByDishID" resultType="com.graduationproject.orderingsys.DAO.Dish">
+        select * from  dish where dish_ID=#{dish_ID};
+    </select>
+
+    <update id="updateDish" >
+        update dish set dish_name=#{dish_name},
+        dish_nuitprice=#{dish_nuitprice},dish_quantity=#{dish_quantity},
+        monthly_sales=#{monthly_sales},dish_rating=#{dish_rating}
+        where dish_ID=#{dish_ID};
+    </update>
+
+    <insert id="addDish" parameterType="com.graduationproject.orderingsys.DAO.Dish">
+        insert into  dish(dish_ID,dish_name,
+        dish_nuitprice,dish_rating,monthly_sales,dish_rating)
+        values (#{dish_ID},#{dish_name},#{dish_nuitprice},
+        #{dish_rating},#{monthly_sales},#{dish_rating});
+    </insert>
+
+    <delete id="delDishByDishID">
+        delete from dish where dish_ID = #{dish_ID};
+    </delete>
 </mapper>

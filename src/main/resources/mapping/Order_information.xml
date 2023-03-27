@@ -3,5 +3,23 @@
 
 <mapper namespace="com.graduationproject.orderingsys.Mapper.Order_informationMapper">
 
+    <select id="queryOrderinfoByOrderID" resultType="com.graduationproject.orderingsys.DAO.Order_information">
+        select * from  order_information where order_ID=#{order_ID};
+    </select>
+
+    <insert id="addOrderinfo" parameterType="com.graduationproject.orderingsys.DAO.Order_information">
+        insert into  order_information(order_ID,order_status,total_amount,comment)
+        values (#{order_ID},#{order_status},#{total_amount},#{comment});
+    </insert>
+
+    <update id="updateOrderinfo" >
+        update order_information set order_status=#{order_status},
+        total_amount=#{total_amount},comment=#{comment}
+        where order_ID=#{order_ID};
+    </update>
+
+    <delete id="delOrderinfoByOrderID">
+        delete from order_information where order_ID = #{order_ID};
+    </delete>
 
 </mapper>

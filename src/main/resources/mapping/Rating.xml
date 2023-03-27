@@ -3,5 +3,18 @@
 
 <mapper namespace="com.graduationproject.orderingsys.Mapper.RatingMapper">
 
+    <insert id="addRating" parameterType="com.graduationproject.orderingsys.DAO.Rating">
+        insert into  Rating(customer_ID,order_ID,dish_ID,rating)
+        values (#{customer_ID},#{order_ID},#{dish_ID},#{rating});
+    </insert>
+
+    <select id="queryRatingByDishID" resultType="com.graduationproject.orderingsys.DAO.Rating">
+        select * from  Rating where dish_ID=#{dish_ID};
+    </select>
+
+    <update id="updateRating" >
+        update Rating set rating=#{rating}
+        where order_ID=#{order_ID} and dish_ID=#{dish_ID};
+    </update>
 
 </mapper>

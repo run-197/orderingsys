@@ -10,6 +10,7 @@ public class Order_information {
     private Integer order_ID;
     private String order_status;
     private Float total_amount;
+    private String comment;
 
     @Override
     public String toString() {
@@ -17,16 +18,18 @@ public class Order_information {
                 "order_ID=" + order_ID +
                 ", order_status='" + order_status + '\'' +
                 ", total_amount=" + total_amount +
+                ", comment='" + comment + '\'' +
                 '}';
     }
 
     public Order_information() {
     }
 
-    public Order_information(Integer order_ID, String order_status, Float total_amount) {
+    public Order_information(Integer order_ID, String order_status, Float total_amount, String comment) {
         this.order_ID = order_ID;
         this.order_status = order_status;
         this.total_amount = total_amount;
+        this.comment = comment;
     }
 
     public Integer getOrder_ID() {
@@ -51,5 +54,13 @@ public class Order_information {
 
     public void setTotal_amount(Float total_amount) {
         this.total_amount = total_amount;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

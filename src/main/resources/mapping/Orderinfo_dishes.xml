@@ -3,5 +3,20 @@
 
 <mapper namespace="com.graduationproject.orderingsys.Mapper.Orderinfo_dishesMapper">
 
+    <insert id="addOrderinfoDishes" parameterType="java.util.List">
+        insert into  orderinfo_dishes(order_ID,dish_ID,dish_number)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.order_ID},#{item.dish_ID},#{dish_number})
+        </foreach>
+    </insert>
+
+    <select id="queryOrderinfoDishesByOrderID" resultType="com.graduationproject.orderingsys.DAO.Orderinfo_dishes">
+        select * from  orderinfo_dishes where order_ID=#{order_ID};
+    </select>
+
+    <delete id="delOrderinfoDishesByOrderID">
+        delete from orderinfo_dishes where order_ID = #{order_ID};
+    </delete>
 
 </mapper>

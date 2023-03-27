@@ -3,5 +3,25 @@
 
 <mapper namespace="com.graduationproject.orderingsys.Mapper.CustomerMapper">
 
+    <select id="queryCustomerByCustomerID" resultType="com.graduationproject.orderingsys.DAO.Customer">
+        select * from  customer where customer_ID=#{customer_ID};
+    </select>
+
+    <update id="updateCustomer" >
+        update customer set customer_nickname=#{customer_nickname},
+        phone_number=#{phone_number},avatar_address=#{avatar_address}
+        where customer_ID=#{customer_ID};
+    </update>
+
+    <delete id="delCustomerByCustomerID">
+        delete from customer where customer_ID = #{customer_ID};
+    </delete>
+
+    <insert id="addCustomer" parameterType="com.graduationproject.orderingsys.DAO.Customer">
+        insert into  customer(customer_ID,customer_nickname,phone_number,avatar_address)
+        values (#{customer_ID},#{customer_nickname},#{phone_number},#{avatar_address});
+    </insert>
+
+
 
 </mapper>

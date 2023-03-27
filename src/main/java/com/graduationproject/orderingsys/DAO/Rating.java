@@ -8,28 +8,28 @@ package com.graduationproject.orderingsys.DAO;
  */
 public class Rating {
     private Integer customer_ID;
+    private Integer order_ID;
     private Integer dish_ID;
     private Float rating;
-    private String comment;
 
     @Override
     public String toString() {
         return "Rating{" +
                 "customer_ID=" + customer_ID +
+                ", order_ID=" + order_ID +
                 ", dish_ID=" + dish_ID +
                 ", rating=" + rating +
-                ", comment='" + comment + '\'' +
                 '}';
     }
 
     public Rating() {
     }
 
-    public Rating(Integer customer_ID, Integer dish_ID, Float rating, String comment) {
+    public Rating(Integer customer_ID, Integer order_ID, Integer dish_ID, Float rating) {
         this.customer_ID = customer_ID;
+        this.order_ID = order_ID;
         this.dish_ID = dish_ID;
         this.rating = rating;
-        this.comment = comment;
     }
 
     public Integer getCustomer_ID() {
@@ -38,6 +38,14 @@ public class Rating {
 
     public void setCustomer_ID(Integer customer_ID) {
         this.customer_ID = customer_ID;
+    }
+
+    public Integer getOrder_ID() {
+        return order_ID;
+    }
+
+    public void setOrder_ID(Integer order_ID) {
+        this.order_ID = order_ID;
     }
 
     public Integer getDish_ID() {
@@ -54,13 +62,5 @@ public class Rating {
 
     public void setRating(Float rating) {
         this.rating = rating;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 }

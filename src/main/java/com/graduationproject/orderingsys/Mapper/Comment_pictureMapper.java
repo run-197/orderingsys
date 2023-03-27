@@ -25,7 +25,7 @@ public interface Comment_pictureMapper {
      * @author: Dongrun Li
      * @date: 2023/3/27 15:33
      */
-    List<Comment_picture> queryCommentPicByCommentID(Integer order_ID);
+    List<Comment_picture> queryCommentPicByOrderID(Integer order_ID);
 
     
     /**
@@ -45,6 +45,6 @@ public interface Comment_pictureMapper {
      * @author: Dongrun Li
      * @date: 2023/3/27 15:44
      */
-    int delCommentPic(Integer order_ID);
+    int delCommentPicByOrderID(Integer order_ID);
 
 }
