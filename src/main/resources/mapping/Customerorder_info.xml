@@ -12,4 +12,8 @@
         select * from  customerorder_info where customer_ID=#{customer_ID};
     </select>
 
+    <select id="queryCustomerIDByOrderID" resultType="com.graduationproject.orderingsys.DAO.Customerorder_info">
+        select * from  customerorder_info where order_ID=#{order_ID};
+    </select>
+
 </mapper>

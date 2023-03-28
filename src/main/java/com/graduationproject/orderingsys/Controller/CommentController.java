@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @BelongsProject: orderingsys
  * @BelongsPackage: com.graduationproject.orderingsys.Controller
  * @Author: Dongrun Li
- * @Date: 2023/3/21 16:23
+ * @Date: 2023/3/28 11:52
  * @Description:
  */
+
 @RestController
-public class DishesController {
+public class CommentController {
 }

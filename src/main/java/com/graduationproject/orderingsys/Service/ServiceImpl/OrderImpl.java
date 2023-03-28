@@ -1,13 +1,15 @@
 package com.graduationproject.orderingsys.Service.ServiceImpl;
 
-import com.graduationproject.orderingsys.Service.RatingService;
+import com.graduationproject.orderingsys.Service.OrderService;
+import org.springframework.stereotype.Service;
 
 /**
  * @BelongsProject: orderingsys
  * @BelongsPackage: com.graduationproject.orderingsys.Service.ServiceImpl
  * @Author: Dongrun Li
- * @Date: 2023/3/22 0:27
+ * @Date: 2023/3/28 11:56
  * @Description:
  */
-public class RatingImpl implements RatingService {
+@Service
+public class OrderImpl implements OrderService {
 }

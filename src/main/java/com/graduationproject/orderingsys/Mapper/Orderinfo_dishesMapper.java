@@ -36,6 +36,15 @@ public interface Orderinfo_dishesMapper {
     List<Orderinfo_dishes> queryOrderinfoDishesByOrderID(Integer order_ID);
 
     /**
+     * @description: 根据菜品ID找到相关的订单
+     * @param dish_ID: 菜品ID
+     * @return java.util.List<com.graduationproject.orderingsys.DAO.Orderinfo_dishes>
+     * @author: Dongrun Li
+     * @date: 2023/3/27 19:53
+     */
+    List<Orderinfo_dishes> queryOrderinfoDishesByDishID(Integer dish_ID);
+
+    /**
      * @description: 根据订单ID删除相关的记录
      * @param order_ID:订单ID
      * @return int

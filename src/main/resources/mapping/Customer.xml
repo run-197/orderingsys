@@ -18,8 +18,11 @@
     </delete>
 
     <insert id="addCustomer" parameterType="com.graduationproject.orderingsys.DAO.Customer">
-        insert into  customer(customer_ID,customer_nickname,phone_number,avatar_address)
-        values (#{customer_ID},#{customer_nickname},#{phone_number},#{avatar_address});
+        insert into  customer(customer_nickname,phone_number,avatar_address)
+        values (#{customer_nickname},#{phone_number},#{avatar_address});
+        <selectKey keyProperty="customer_ID" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
 

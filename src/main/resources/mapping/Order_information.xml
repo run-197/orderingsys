@@ -8,8 +8,11 @@
     </select>
 
     <insert id="addOrderinfo" parameterType="com.graduationproject.orderingsys.DAO.Order_information">
-        insert into  order_information(order_ID,order_status,total_amount,comment)
-        values (#{order_ID},#{order_status},#{total_amount},#{comment});
+        insert into  order_information(order_status,total_amount,comment)
+        values (#{order_status},#{total_amount},#{comment});
+        <selectKey keyProperty="order_ID" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
     <update id="updateOrderinfo" >

@@ -15,6 +15,10 @@
         select * from  orderinfo_dishes where order_ID=#{order_ID};
     </select>
 
+    <select id="queryOrderinfoDishesByDishID" resultType="com.graduationproject.orderingsys.DAO.Orderinfo_dishes">
+        select * from  orderinfo_dishes where dish_ID=#{dish_ID};
+    </select>
+
     <delete id="delOrderinfoDishesByOrderID">
         delete from orderinfo_dishes where order_ID = #{order_ID};
     </delete>

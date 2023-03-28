@@ -34,4 +34,13 @@ public interface Customerorder_infoMapper {
      * @date: 2023/3/27 16:42
      */
     List<Integer> queryOrderIDByCustomerID(Integer customer_ID);
+
+    /**
+     * @description: 通过用户ID查找该用户产生的所有账单ID
+     * @param order_ID: 用户ID
+     * @return java.util.List<java.lang.Integer>
+     * @author: Dongrun Li
+     * @date: 2023/3/27 16:42
+     */
+    Integer queryCustomerIDByOrderID(Integer order_ID);
 }

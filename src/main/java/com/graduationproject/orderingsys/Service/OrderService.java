@@ -4,8 +4,8 @@ package com.graduationproject.orderingsys.Service;
  * @BelongsProject: orderingsys
  * @BelongsPackage: com.graduationproject.orderingsys.Service
  * @Author: Dongrun Li
- * @Date: 2023/3/22 0:20
+ * @Date: 2023/3/28 11:56
  * @Description:
  */
-public interface Orderinfo_dishesService {
+public interface OrderService {
 }
