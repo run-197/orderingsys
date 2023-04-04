@@ -24,20 +24,28 @@ import java.util.Map;
 @Service
 public class CommentImpl implements CommentService {
 
-    @Autowired
+    final
     Comment_pictureMapper comment_pictureMapper;
 
-    @Autowired
+    final
     Order_informationMapper order_informationMapper;
 
-    @Autowired
+    final
     Orderinfo_dishesMapper orderinfo_dishesMapper;
 
-    @Autowired
+    final
     RatingMapper ratingMapper;
 
-    @Autowired
+    final
     Customerorder_infoMapper customerorder_infoMapper;
+
+    public CommentImpl(Comment_pictureMapper comment_pictureMapper, Order_informationMapper order_informationMapper, Orderinfo_dishesMapper orderinfo_dishesMapper, RatingMapper ratingMapper, Customerorder_infoMapper customerorder_infoMapper) {
+        this.comment_pictureMapper = comment_pictureMapper;
+        this.order_informationMapper = order_informationMapper;
+        this.orderinfo_dishesMapper = orderinfo_dishesMapper;
+        this.ratingMapper = ratingMapper;
+        this.customerorder_infoMapper = customerorder_infoMapper;
+    }
 
     /**
      * @description: 根据评论上传的图片地址，评论，和订单号完成评论相关的数据存储
@@ -48,6 +56,7 @@ public class CommentImpl implements CommentService {
      * @author: Dongrun Li
      * @date: 2023/3/28 14:45
      */
+    @Override
     public boolean alterNewComment(List<String> picAddressList, String comment, Integer Order_ID){
         boolean isAddpic,isAddcomment;//标志是否成功完成添加图片和评论
 
@@ -75,10 +84,26 @@ public class CommentImpl implements CommentService {
 //        return true;
 //    }
 
+    /**
+     * @description: 获取某个订单的评论
+     * @param order_ID: 订单ID
+     * @return java.lang.String
+     * @author: Dongrun Li
+     * @date: 2023/4/4 12:50
+     */
+    @Override
     public String getCommentByOrderID(Integer order_ID){
         return order_informationMapper.queryOrderinfoByOrderID(order_ID).getComment();
     }
 
+    /**
+     * @description: 根据订单ID获取评论的图片地址
+     * @param order_ID: 订单ID
+     * @return java.util.List<java.lang.String>
+     * @author: Dongrun Li
+     * @date: 2023/4/4 12:51
+     */
+    @Override
     public List<String> gerPicaddressByorderID(Integer order_ID){
         List<Comment_picture> CommentPictureList=comment_pictureMapper.queryCommentPicByOrderID(order_ID);
         List<String> picAddressList=new ArrayList<>();
@@ -89,6 +114,14 @@ public class CommentImpl implements CommentService {
         return picAddressList;
     }
 
+    /**
+     * @description: 获得某个菜品的所有评论（由于顾客一般是会对于订单而非单独对菜品评价，这里获取的评价是包含菜品的订单的评价）
+     * @param dish_ID: 菜品ID
+     * @return java.util.Map<java.lang.Integer,java.lang.String>
+     * @author: Dongrun Li
+     * @date: 2023/4/4 12:53
+     */
+    @Override
     public Map<Integer,String> showCommentByDishID(Integer dish_ID){
         List<Orderinfo_dishes> OrderinfodishesList=orderinfo_dishesMapper.queryOrderinfoDishesByDishID(dish_ID);
         Map<Integer,String> customerIDcommentMap=new HashMap<>();
@@ -101,11 +134,30 @@ public class CommentImpl implements CommentService {
 
     }
 
+    /**
+     * @description: 添加评分
+     * @param customer_ID: 顾客ID
+     * @param order_ID: 订单ID
+     * @param dish_ID: 菜品ID
+     * @param rating: 评分
+     * @return boolean
+     * @author: Dongrun Li
+     * @date: 2023/4/4 12:54
+     */
+    @Override
     public boolean addNewRating(Integer customer_ID, Integer order_ID, Integer dish_ID, Float rating){
         Rating rating0=new Rating(customer_ID,order_ID,dish_ID,rating);
         return ratingMapper.addRating(rating0)==1;
     }
 
+    /**
+     * @description: 计算菜品评分
+     * @param dish_ID: 菜品ID
+     * @return java.lang.Float
+     * @author: Dongrun Li
+     * @date: 2023/4/4 12:55
+     */
+    @Override
     public Float calculateRatingByDishID(Integer dish_ID){
         Float averating= (float) 0.0;
         int i=0;

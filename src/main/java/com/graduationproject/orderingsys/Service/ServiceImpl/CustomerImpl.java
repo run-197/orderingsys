@@ -16,9 +16,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerImpl implements CustomerService {
 
-    @Autowired
+    final
     CustomerMapper customerMapper;
 
+    public CustomerImpl(CustomerMapper customerMapper) {
+        this.customerMapper = customerMapper;
+    }
+
+    /**
+     * @description: 添加新的顾客信息
+     * @param customer_nickname: 顾客昵称
+     * @param phone_number: 手机号
+     * @param avatar_address: 头像地址
+     * @return boolean
+     * @author: Dongrun Li
+     * @date: 2023/4/4 12:55
+     */
+    @Override
     public boolean addNewCustomer(String customer_nickname, String phone_number, String avatar_address){
         Customer customer=new Customer();
         customer.setCustomer_nickname(customer_nickname);
@@ -26,6 +40,18 @@ public class CustomerImpl implements CustomerService {
         customer.setAvatar_address(avatar_address);
         return customerMapper.addCustomer(customer)==1;
     }
+
+    /**
+     * @description: 修改顾客个人信息
+     * @param customer_ID: 顾客ID
+     * @param customer_nickname: 顾客昵称
+     * @param phone_number: 手机号
+     * @param avatar_address: 头像地址
+     * @return boolean
+     * @author: Dongrun Li
+     * @date: 2023/4/4 12:56
+     */
+    @Override
     public boolean updateCustomer(Integer customer_ID, String customer_nickname, String phone_number, String avatar_address){
         Customer customer=customerMapper.queryCustomerByCustomerID(customer_ID);
         customer.setCustomer_nickname(customer_nickname);

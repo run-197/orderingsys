@@ -18,7 +18,6 @@ public interface CommentService {
     String getCommentByOrderID(Integer order_ID);
     List<String> gerPicaddressByorderID(Integer order_ID);
     Map<Integer,String> showCommentByDishID(Integer dish_ID);
-
     boolean addNewRating(Integer customer_ID,Integer order_ID,Integer dish_ID,Float rating);
     Float calculateRatingByDishID(Integer dish_ID);
 }

@@ -61,4 +61,12 @@ public interface DishMapper {
      */
     int delDishByDishID(Integer dish_ID);
 
+    /**
+     * @description: 更新月销量
+     * @return int
+     * @author: Dongrun Li
+     * @date: 2023/3/31 18:30
+     */
+    int setSaleszero();
+
 }
