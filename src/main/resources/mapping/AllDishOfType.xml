@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.graduationproject.orderingsys.Mapper.AllDishOfTypeMapper">
+
+    <select id="queryAllType" resultType="java.lang.String">
+        select distinct the_type from  dish_type ;
+    </select>
+
+    <resultMap id="dishOfType" type="com.graduationproject.orderingsys.DAO.AllDishOfType">
+        <result column="the_type" property="the_type"/>
+        <collection property="dishList" javaType="java.util.List" ofType="com.graduationproject.orderingsys.DAO.Dish">
+            <id column="dish_ID" property="dish_ID" />
+            <result column="dish_name" property="dish_name" />
+            <result column="dish_nuitprice" property="dish_nuitprice" />
+            <result column="dish_quantity" property="dish_quantity" />
+            <result column="monthly_sales" property="monthly_sales" />
+            <result column="dish_rating" property="dish_rating" />
+            <result column="dish_description" property="dish_description" />
+            <result column="picture_address" property="picture_address"/>
+        </collection>
+    </resultMap>
+    <select id="queryAllDishOfTypeByType" resultMap="dishOfType">
+        SELECT dish_type.the_type , dish.* FROM dish INNER JOIN dish_type ON dish.dish_ID = dish_type.dish_ID
+        WHERE dish_type.the_type = #{the_type}
+    </select>
+</mapper>

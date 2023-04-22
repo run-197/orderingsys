@@ -14,15 +14,15 @@
     <update id="updateDish" >
         update dish set dish_name=#{dish_name},dish_nuitprice=#{dish_nuitprice},
         dish_quantity=#{dish_quantity},monthly_sales=#{monthly_sales},
-        dish_rating=#{dish_rating},dish_description=#{dish_description}
+        dish_rating=#{dish_rating},dish_description=#{dish_description},picture_address=#{picture_address}
         where dish_ID=#{dish_ID};
     </update>
 
     <insert id="addDish" parameterType="com.graduationproject.orderingsys.DAO.Dish">
-        insert into  dish(dish_name,dish_nuitprice,
-        dish_rating,monthly_sales,dish_rating,dish_description)
+        insert into  dish(dish_name,dish_nuitprice,dish_rating,
+        monthly_sales,dish_rating,dish_description,picture_address)
         values (#{dish_name},#{dish_nuitprice},#{dish_rating},
-        #{monthly_sales},#{dish_rating},#{dish_description});
+        #{monthly_sales},#{dish_rating},#{dish_description},#{picture_address});
         <selectKey keyProperty="dish_ID" order="AFTER" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>

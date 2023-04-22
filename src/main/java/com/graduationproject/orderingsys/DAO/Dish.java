@@ -14,6 +14,7 @@ public class Dish {
     private Integer monthly_sales;
     private Float dish_rating;
     private String dish_description;
+    private String picture_address;
 
     @Override
     public String toString() {
@@ -25,13 +26,15 @@ public class Dish {
                 ", monthly_sales=" + monthly_sales +
                 ", dish_rating=" + dish_rating +
                 ", dish_description='" + dish_description + '\'' +
+                ",picture_address='" + picture_address + '\''+
                 '}';
     }
 
     public Dish() {
     }
 
-    public Dish(Integer dish_ID, String dish_name, Float dish_nuitprice, String dish_quantity, Integer monthly_sales, Float dish_rating, String dish_description) {
+    public Dish(Integer dish_ID, String dish_name, Float dish_nuitprice, String dish_quantity, Integer monthly_sales,
+                Float dish_rating, String dish_description, String picture_address) {
         this.dish_ID = dish_ID;
         this.dish_name = dish_name;
         this.dish_nuitprice = dish_nuitprice;
@@ -39,6 +42,7 @@ public class Dish {
         this.monthly_sales = monthly_sales;
         this.dish_rating = dish_rating;
         this.dish_description = dish_description;
+        this.picture_address = picture_address;
     }
 
     public Integer getDish_ID() {
@@ -95,5 +99,13 @@ public class Dish {
 
     public void setDish_description(String dish_description) {
         this.dish_description = dish_description;
+    }
+
+    public String getPicture_address() {
+        return picture_address;
+    }
+
+    public void setPicture_address(String picture_address) {
+        this.picture_address = picture_address;
     }
 }

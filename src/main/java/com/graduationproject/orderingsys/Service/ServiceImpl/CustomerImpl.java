@@ -23,6 +23,11 @@ public class CustomerImpl implements CustomerService {
         this.customerMapper = customerMapper;
     }
 
+    @Override
+    public Customer queryCustomerByID(Integer customer_ID) {
+        return customerMapper.queryCustomerByCustomerID(customer_ID);
+    }
+
     /**
      * @description: 添加新的顾客信息
      * @param customer_nickname: 顾客昵称

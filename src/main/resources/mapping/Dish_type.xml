@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.graduationproject.orderingsys.Mapper.Dish_typeMapper">
+
+    <insert id="addNewRelation" parameterType="com.graduationproject.orderingsys.DAO.Dish_type">
+        insert into  Dish_type(the_type,dish_ID)
+        values (#{the_type},#{dish_ID});
+    </insert>
+
+    <update id="updateRelationByDishID" >
+        update Dish_type set the_type=#{the_type}
+        where dish_ID=#{dish_ID}
+    </update>
+
+    <select id="queryRelationByDishID" resultType="string">
+        select the_type from  Dish_type where dish_ID=#{dish_ID};
+    </select>
+
+
+</mapper>

@@ -1,12 +1,16 @@
 package com.graduationproject.orderingsys.Service.ServiceImpl;
 
+import com.graduationproject.orderingsys.DAO.AllDishOfType;
 import com.graduationproject.orderingsys.DAO.Dish;
+import com.graduationproject.orderingsys.DAO.Dish_picture;
+import com.graduationproject.orderingsys.Mapper.AllDishOfTypeMapper;
 import com.graduationproject.orderingsys.Mapper.DishMapper;
+import com.graduationproject.orderingsys.Mapper.Dish_pictureMapper;
 import com.graduationproject.orderingsys.Service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,15 +24,74 @@ import java.util.List;
 public class DishImpl implements DishService {
 
     final
+    AllDishOfTypeMapper allDishOfTypeMapper;
+
+    final
+    Dish_pictureMapper dish_pictureMapper;
+
+    final
     DishMapper dishMapper;
 
-    public DishImpl(DishMapper dishMapper) {
+    public DishImpl(DishMapper dishMapper, Dish_pictureMapper dish_pictureMapper, AllDishOfTypeMapper allDishOfTypeMapper) {
         this.dishMapper = dishMapper;
+        this.dish_pictureMapper = dish_pictureMapper;
+        this.allDishOfTypeMapper = allDishOfTypeMapper;
     }
+
+    @Override
+    public List<Dish> getDishByIDList(List<Integer> IDList) {
+        List<Dish> dishesList=new ArrayList<>();
+        for (Integer ID:IDList) {
+            dishesList.add(dishMapper.queryDishByDishID(ID));
+        }
+        return dishesList;
+    }
+
+    @Override
+    public List<AllDishOfType> getAllDishnew() {
+        List<String> dishTypeList=allDishOfTypeMapper.queryAllType();
+        List<AllDishOfType> allDishOfTypeList=new ArrayList<>();
+        for (String the_type:dishTypeList) {
+            AllDishOfType allDishOfType=allDishOfTypeMapper.queryAllDishOfTypeByType(the_type);
+            allDishOfTypeList.add(allDishOfType);
+            System.out.println(allDishOfType);
+        }
+        return allDishOfTypeList;
+    }
+
+    /**
+     * @description: 获取所有菜品
+     * @return java.util.List<com.graduationproject.orderingsys.DAO.Dish>
+     * @author: Dongrun Li
+     * @date: 2023/4/16 11:16
+     */
 
     @Override
     public List<Dish> getAllDish() {
         return dishMapper.queryDish();
+    }
+    /**
+     * @description: 通过菜品ID获取菜品信息
+     * @param dish_ID: 菜品ID
+     * @return com.graduationproject.orderingsys.DAO.Dish
+     * @author: Dongrun Li
+     * @date: 2023/4/16 11:17
+     */
+    @Override
+    public Dish getDishByID(Integer dish_ID) {
+        return dishMapper.queryDishByDishID(dish_ID);
+    }
+
+    /**
+     * @description: 通过菜品ID获取相关的菜品图片地址
+     * @param dish_ID: 菜品ID
+     * @return java.util.List<com.graduationproject.orderingsys.DAO.Dish_picture>
+     * @author: Dongrun Li
+     * @date: 2023/4/16 13:40
+     */
+    @Override
+    public List<Dish_picture> getDishpicByID(Integer dish_ID) {
+        return dish_pictureMapper.queryDishPicByDishID(dish_ID);
     }
 
     /**

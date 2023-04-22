@@ -1,6 +1,8 @@
 package com.graduationproject.orderingsys.Service;
 
+import com.graduationproject.orderingsys.DAO.AllDishOfType;
 import com.graduationproject.orderingsys.DAO.Dish;
+import com.graduationproject.orderingsys.DAO.Dish_picture;
 
 import java.util.List;
 
@@ -12,7 +14,11 @@ import java.util.List;
  * @Description:
  */
 public interface DishService {
+    List<Dish> getDishByIDList(List<Integer> IDList);
+    List<Dish_picture> getDishpicByID(Integer dish_ID);
+    List<AllDishOfType> getAllDishnew();
     List<Dish> getAllDish();
+    Dish getDishByID(Integer dish_ID);
     boolean addNewDish(String dish_name,Float dish_nuitprice,String dish_quantity,String dish_description);
     boolean addNewDish(String dish_name,Float dish_nuitprice,String descriptionORquantity,boolean isDescription);
     boolean addNewDish(String dish_name,Float dish_nuitprice);
