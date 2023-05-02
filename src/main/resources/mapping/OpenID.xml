@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.graduationproject.orderingsys.Mapper.OpenIDMapper">
+
+    <insert id="addNewOpenID" parameterType="com.graduationproject.orderingsys.DAO.OpenID">
+        insert into  OpenID(openID,customer_ID)
+        values (#{openID},#{customer_ID});
+    </insert>
+
+
+    <select id="queryCustomer_ID" resultType="java.lang.Integer">
+        select customer_ID from  OpenID where openID=#{openID};
+    </select>
+
+
+</mapper>

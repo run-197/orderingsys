@@ -54,7 +54,6 @@ public class DishImpl implements DishService {
         for (String the_type:dishTypeList) {
             AllDishOfType allDishOfType=allDishOfTypeMapper.queryAllDishOfTypeByType(the_type);
             allDishOfTypeList.add(allDishOfType);
-            System.out.println(allDishOfType);
         }
         return allDishOfTypeList;
     }

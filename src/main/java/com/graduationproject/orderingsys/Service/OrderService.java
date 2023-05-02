@@ -15,7 +15,7 @@ import java.util.Map;
  * @Description:
  */
 public interface OrderService {
-    boolean addNewOrderInfomation(Integer customer_ID, Map<Integer,Integer> dish_IDandNumber,Float total_amount);
+    boolean addNewOrderInfomation(Integer customer_ID,Integer table_ID, Map<Integer,Integer> dish_IDandNumber,Float total_amount);
     boolean updateOrderStatus(Integer order_ID,String order_status);
     List<Order_information> getAllOrder(Integer customer_ID);
     List<Orderinfo_dishes> getOrderDishes(Integer order_ID);

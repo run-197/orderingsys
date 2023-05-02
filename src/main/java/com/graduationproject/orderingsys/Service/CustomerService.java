@@ -10,7 +10,8 @@ import com.graduationproject.orderingsys.DAO.Customer;
  * @Description:
  */
 public interface CustomerService {
+    Integer queryCustomerIDByOpenID(String openID);
     Customer queryCustomerByID(Integer customer_ID);
-    boolean addNewCustomer(String customer_nickname,String phone_number,String avatar_address);
+    boolean addNewCustomer(String customer_nickname,String phone_number,String avatar_address,String open_ID);
     boolean updateCustomer(Integer customer_ID,String customer_nickname,String phone_number,String avatar_address);
 }

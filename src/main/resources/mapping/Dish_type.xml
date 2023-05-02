@@ -13,7 +13,7 @@
         where dish_ID=#{dish_ID}
     </update>
 
-    <select id="queryRelationByDishID" resultType="string">
+    <select id="queryRelationByDishID" resultType="java.lang.String">
         select the_type from  Dish_type where dish_ID=#{dish_ID};
     </select>
 

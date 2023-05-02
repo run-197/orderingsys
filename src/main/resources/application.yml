@@ -1,5 +1,10 @@
 server:
-    port:8080
+    port: 8080
+
+
+appid: wxbc8520219ca144f4
+secret: 8afbc946b865bbebee2ee1068c6d0a29
+grant_type: authorization_code
 
 spring:
   datasource:

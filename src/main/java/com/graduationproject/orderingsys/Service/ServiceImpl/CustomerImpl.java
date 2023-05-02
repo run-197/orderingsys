@@ -1,7 +1,9 @@
 package com.graduationproject.orderingsys.Service.ServiceImpl;
 
 import com.graduationproject.orderingsys.DAO.Customer;
+import com.graduationproject.orderingsys.DAO.OpenID;
 import com.graduationproject.orderingsys.Mapper.CustomerMapper;
+import com.graduationproject.orderingsys.Mapper.OpenIDMapper;
 import com.graduationproject.orderingsys.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,19 @@ import org.springframework.stereotype.Service;
 public class CustomerImpl implements CustomerService {
 
     final
+    OpenIDMapper openIDMapper;
+
+    final
     CustomerMapper customerMapper;
 
-    public CustomerImpl(CustomerMapper customerMapper) {
+    public CustomerImpl(CustomerMapper customerMapper, OpenIDMapper openIDMapper) {
         this.customerMapper = customerMapper;
+        this.openIDMapper = openIDMapper;
+    }
+
+    @Override
+    public Integer queryCustomerIDByOpenID(String openID) {
+        return openIDMapper.queryCustomer_ID(openID);
     }
 
     @Override
@@ -38,12 +49,17 @@ public class CustomerImpl implements CustomerService {
      * @date: 2023/4/4 12:55
      */
     @Override
-    public boolean addNewCustomer(String customer_nickname, String phone_number, String avatar_address){
+    public boolean addNewCustomer(String customer_nickname, String phone_number, String avatar_address,String open_ID){
         Customer customer=new Customer();
         customer.setCustomer_nickname(customer_nickname);
         customer.setPhone_number(phone_number);
         customer.setAvatar_address(avatar_address);
-        return customerMapper.addCustomer(customer)==1;
+        customerMapper.addCustomer(customer);
+        Integer customer_ID=customer.getCustomer_ID();
+        OpenID openID=new OpenID();
+        openID.setCustomer_ID(customer_ID);
+        openID.setOpenID(open_ID);
+        return openIDMapper.addNewOpenID(openID) ==1;
     }
 
     /**

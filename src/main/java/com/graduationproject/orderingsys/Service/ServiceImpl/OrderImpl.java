@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -53,11 +54,14 @@ public class OrderImpl implements OrderService {
      * @date: 2023/4/4 13:06
      */
     @Override
-    public boolean addNewOrderInfomation(Integer customer_ID, Map<Integer, Integer> dish_IDandNumber,Float total_amount) {
+    public boolean addNewOrderInfomation(Integer customer_ID,Integer table_ID, Map<Integer, Integer> dish_IDandNumber,Float total_amount) {
         //先在订单信息表中添加记录，并获得订单ID
         Order_information order_information=new Order_information();
+        order_information.setTable_ID(table_ID);
         order_information.setOrder_status("submitted");
+        order_information.setItem_quantity(dish_IDandNumber.size());
         order_information.setTotal_amount(total_amount);
+        order_information.setOrder_time(new Timestamp(System.currentTimeMillis()));
         order_informationMapper.addOrderinfo(order_information);
         Integer order_ID=order_information.getOrder_ID();
 
@@ -71,8 +75,13 @@ public class OrderImpl implements OrderService {
         while (entries.hasNext()) {
             Map.Entry<Integer, Integer> entry = entries.next();
             Integer dish_ID = entry.getKey();
-            Integer number = entry.getValue();
-            OrderdishesList.add(new Orderinfo_dishes(order_ID,dish_ID,number));
+            Integer dish_number = entry.getValue();
+            OrderdishesList.add(new Orderinfo_dishes(order_ID,dish_ID,dish_number));
+        }
+        System.out.println(OrderdishesList);
+        for (Orderinfo_dishes it:OrderdishesList) {
+            System.out.println(it);
+
         }
         orderinfo_dishesMapper.addOrderinfoDishes(OrderdishesList);
 
@@ -104,7 +113,7 @@ public class OrderImpl implements OrderService {
     @Override
     public List<Order_information> getAllOrder(Integer customer_ID) {
         List<Order_information> Order_informationList=new ArrayList<>();
-        List<Integer> orderIDList=customerorder_infoMapper.queryOrderIDByCustomerID(customer_ID);
+        List<Integer> orderIDList=customerorder_infoMapper. queryOrderIDByCustomerID(customer_ID);
         for (Integer order_ID:  orderIDList) {
             Order_informationList.add(order_informationMapper.queryOrderinfoByOrderID(order_ID));
         }
@@ -120,7 +129,7 @@ public class OrderImpl implements OrderService {
      */
     @Override
     public List<Orderinfo_dishes> getOrderDishes(Integer order_ID) {
-        return orderinfo_dishesMapper.queryOrderinfoDishesByDishID(order_ID);
+        return orderinfo_dishesMapper.queryOrderinfoDishesByOrderID(order_ID);
     }
 
     /**

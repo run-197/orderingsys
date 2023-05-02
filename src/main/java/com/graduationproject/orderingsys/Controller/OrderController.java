@@ -1,12 +1,18 @@
 package com.graduationproject.orderingsys.Controller;
 
-import com.graduationproject.orderingsys.DAO.Customer;
+import com.graduationproject.orderingsys.DAO.*;
+import com.graduationproject.orderingsys.Paramtype.DishIDList;
+import com.graduationproject.orderingsys.Paramtype.IDandNumber;
 import com.graduationproject.orderingsys.Service.ServiceImpl.CustomerImpl;
+import com.graduationproject.orderingsys.Service.ServiceImpl.OrderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @BelongsProject: orderingsys
@@ -23,15 +29,39 @@ public class OrderController {
     final
     CustomerImpl customerimpl;
 
-    public OrderController(CustomerImpl customerimpl) {
+    final
+    OrderImpl orderimpl;
+
+    public OrderController(CustomerImpl customerimpl, OrderImpl orderimpl) {
         this.customerimpl = customerimpl;
+        this.orderimpl = orderimpl;
     }
 
-    @RequestMapping("/test")
-    @ResponseBody
-    public Customer hello(){
 
-        System.out.println("Hello world");
-        return customerimpl.queryCustomerByID(1);
+    @RequestMapping("/getallorderbyID")
+    @ResponseBody
+    public List<Order_information> getOrderList(Integer customer_ID){
+        return orderimpl.getAllOrder(customer_ID);
+    }
+
+    @RequestMapping("/getorderbyorderID")
+    @ResponseBody
+    public Order_information getOrderInfo(Integer order_ID){
+        return orderimpl.getOrderInfo(order_ID);
+    }
+
+    @RequestMapping("/getdishinfobyorderID")
+    @ResponseBody
+    public List<Orderinfo_dishes> getdishesinfo(Integer order_ID){
+        return orderimpl.getOrderDishes(order_ID);
+    }
+    @PostMapping("/submitorder")
+    @ResponseBody
+    public Boolean submitOrder(@RequestBody IDandNumber iDandNumber){
+        Map<Integer, Integer> idandnum = IntStream.range(0, iDandNumber.getIdList().size())
+                .boxed()
+                .collect(Collectors.toMap(iDandNumber.getIdList()::get, iDandNumber.getNumList()::get));
+        System.out.println(idandnum);
+        return orderimpl.addNewOrderInfomation(iDandNumber.getCustomer_ID(),iDandNumber.getTable_ID(),idandnum,iDandNumber.getDishAmout());
     }
 }

@@ -6,8 +6,8 @@
     <insert id="addOrderinfoDishes" parameterType="java.util.List">
         insert into  orderinfo_dishes(order_ID,dish_ID,dish_number)
         values
-        <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.order_ID},#{item.dish_ID},#{dish_number})
+        <foreach collection="OrderdishesList" item="item" separator=",">
+            (#{item.order_ID},#{item.dish_ID},#{item.dish_number})
         </foreach>
     </insert>
 
