@@ -1,18 +1,12 @@
 package com.graduationproject.orderingsys.Service.ServiceImpl;
 
-import com.graduationproject.orderingsys.DAO.Comment_picture;
-import com.graduationproject.orderingsys.DAO.Order_information;
-import com.graduationproject.orderingsys.DAO.Orderinfo_dishes;
-import com.graduationproject.orderingsys.DAO.Rating;
+import com.graduationproject.orderingsys.DAO.*;
 import com.graduationproject.orderingsys.Mapper.*;
 import com.graduationproject.orderingsys.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @BelongsProject: orderingsys
@@ -23,6 +17,9 @@ import java.util.Map;
  */
 @Service
 public class CommentImpl implements CommentService {
+
+    final
+    DishMapper dishMapper;
 
     final
     Comment_pictureMapper comment_pictureMapper;
@@ -39,12 +36,13 @@ public class CommentImpl implements CommentService {
     final
     Customerorder_infoMapper customerorder_infoMapper;
 
-    public CommentImpl(Comment_pictureMapper comment_pictureMapper, Order_informationMapper order_informationMapper, Orderinfo_dishesMapper orderinfo_dishesMapper, RatingMapper ratingMapper, Customerorder_infoMapper customerorder_infoMapper) {
+    public CommentImpl(Comment_pictureMapper comment_pictureMapper, Order_informationMapper order_informationMapper, Orderinfo_dishesMapper orderinfo_dishesMapper, RatingMapper ratingMapper, Customerorder_infoMapper customerorder_infoMapper,DishMapper dishMapper) {
         this.comment_pictureMapper = comment_pictureMapper;
         this.order_informationMapper = order_informationMapper;
         this.orderinfo_dishesMapper = orderinfo_dishesMapper;
         this.ratingMapper = ratingMapper;
         this.customerorder_infoMapper = customerorder_infoMapper;
+        this.dishMapper = dishMapper;
     }
 
     /**
@@ -104,7 +102,7 @@ public class CommentImpl implements CommentService {
      * @date: 2023/4/4 12:51
      */
     @Override
-    public List<String> gerPicaddressByorderID(Integer order_ID){
+    public List<String> getPicaddressByorderID(Integer order_ID){
         List<Comment_picture> CommentPictureList=comment_pictureMapper.queryCommentPicByOrderID(order_ID);
         List<String> picAddressList=new ArrayList<>();
         for (Comment_picture comment_picture : CommentPictureList) {
@@ -126,9 +124,9 @@ public class CommentImpl implements CommentService {
         List<Orderinfo_dishes> OrderinfodishesList=orderinfo_dishesMapper.queryOrderinfoDishesByDishID(dish_ID);
         Map<Integer,String> customerIDcommentMap=new HashMap<>();
         for (Orderinfo_dishes orderinfo_dishes : OrderinfodishesList) {
-            Integer order_ID = customerorder_infoMapper.queryCustomerIDByOrderID(orderinfo_dishes.getOrder_ID());
+            Integer customer_ID = customerorder_infoMapper.queryCustomerIDByOrderID(orderinfo_dishes.getOrder_ID());
             String comment = order_informationMapper.queryOrderinfoByOrderID(orderinfo_dishes.getOrder_ID()).getComment();
-            customerIDcommentMap.put(order_ID, comment);
+            customerIDcommentMap.put(customer_ID, comment);
         }
         return customerIDcommentMap;
 
@@ -138,16 +136,29 @@ public class CommentImpl implements CommentService {
      * @description: 添加评分
      * @param customer_ID: 顾客ID
      * @param order_ID: 订单ID
-     * @param dish_ID: 菜品ID
-     * @param rating: 评分
      * @return boolean
      * @author: Dongrun Li
      * @date: 2023/4/4 12:54
      */
     @Override
-    public boolean addNewRating(Integer customer_ID, Integer order_ID, Integer dish_ID, Float rating){
-        Rating rating0=new Rating(customer_ID,order_ID,dish_ID,rating);
-        return ratingMapper.addRating(rating0)==1;
+    public boolean addNewRating(Integer customer_ID, Integer order_ID, Map<Integer,Float> dish_IDandRating){
+        Iterator<Map.Entry<Integer, Float>> entries = dish_IDandRating.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry<Integer, Float> entry = entries.next();
+            Integer dish_ID = entry.getKey();
+            Float rating = entry.getValue();
+            ratingMapper.addRating(new Rating(customer_ID,order_ID,dish_ID,rating));
+            List<Rating> ratingList=ratingMapper.queryRatingByDishID(dish_ID);
+            int i=0;
+            Float avgrating=(float) 0.0;
+            for(;i < ratingList.size();i++)
+                avgrating+=ratingList.get(i).getRating();
+            avgrating/=i;
+            Dish dish=dishMapper.queryDishByDishID(dish_ID);
+            dish.setDish_rating(avgrating);
+            dishMapper.updateDish(dish);
+        }
+        return true;
     }
 
     /**
@@ -165,5 +176,13 @@ public class CommentImpl implements CommentService {
         for(;i < ratingList.size();i++)
             averating+=ratingList.get(i).getRating();
         return averating/i;
+    }
+
+    @Override
+    public boolean addComment(Integer order_ID, String comment) {
+        Order_information order_information= order_informationMapper.queryOrderinfoByOrderID(order_ID);
+        order_information.setComment(comment);
+        order_information.setOrder_status("commented");
+        return order_informationMapper.updateOrderinfo(order_information)==1;
     }
 }

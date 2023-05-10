@@ -16,8 +16,9 @@ public interface CommentService {
     boolean alterNewComment(List<String> picAddressList,String comment,Integer Order_ID);
 //    boolean alterComment(List<String> picAddressList,String comment,Integer Order_ID);//和上一个功能似乎重复了
     String getCommentByOrderID(Integer order_ID);
-    List<String> gerPicaddressByorderID(Integer order_ID);
+    List<String> getPicaddressByorderID(Integer order_ID);
     Map<Integer,String> showCommentByDishID(Integer dish_ID);
-    boolean addNewRating(Integer customer_ID,Integer order_ID,Integer dish_ID,Float rating);
+    boolean addNewRating(Integer customer_ID,Integer order_ID,Map<Integer,Float> dish_IDandRating);
     Float calculateRatingByDishID(Integer dish_ID);
+    boolean addComment(Integer order_ID,String comment);
 }

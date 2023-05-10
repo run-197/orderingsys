@@ -1,9 +1,11 @@
 package com.graduationproject.orderingsys.Service.ServiceImpl;
 
 import com.graduationproject.orderingsys.DAO.Customerorder_info;
+import com.graduationproject.orderingsys.DAO.Dish;
 import com.graduationproject.orderingsys.DAO.Order_information;
 import com.graduationproject.orderingsys.DAO.Orderinfo_dishes;
 import com.graduationproject.orderingsys.Mapper.Customerorder_infoMapper;
+import com.graduationproject.orderingsys.Mapper.DishMapper;
 import com.graduationproject.orderingsys.Mapper.Order_informationMapper;
 import com.graduationproject.orderingsys.Mapper.Orderinfo_dishesMapper;
 import com.graduationproject.orderingsys.Service.OrderService;
@@ -28,6 +30,8 @@ import java.util.Map;
 public class OrderImpl implements OrderService {
 
     final
+    DishMapper dishMapper;
+    final
     Order_informationMapper order_informationMapper;
 
     final
@@ -36,10 +40,11 @@ public class OrderImpl implements OrderService {
     final
     Customerorder_infoMapper customerorder_infoMapper;
 
-    public OrderImpl(Order_informationMapper order_informationMapper, Orderinfo_dishesMapper orderinfo_dishesMapper, Customerorder_infoMapper customerorder_infoMapper) {
+    public OrderImpl(Order_informationMapper order_informationMapper, Orderinfo_dishesMapper orderinfo_dishesMapper, Customerorder_infoMapper customerorder_infoMapper, DishMapper dishMapper) {
         this.order_informationMapper = order_informationMapper;
         this.orderinfo_dishesMapper = orderinfo_dishesMapper;
         this.customerorder_infoMapper = customerorder_infoMapper;
+        this.dishMapper = dishMapper;
     }
 
 
@@ -77,6 +82,9 @@ public class OrderImpl implements OrderService {
             Integer dish_ID = entry.getKey();
             Integer dish_number = entry.getValue();
             OrderdishesList.add(new Orderinfo_dishes(order_ID,dish_ID,dish_number));
+            Dish dish=dishMapper.queryDishByDishID(dish_ID);
+            dish.setMonthly_sales(dish.getMonthly_sales()+dish_number);
+            dishMapper.updateDish(dish);
         }
         System.out.println(OrderdishesList);
         for (Orderinfo_dishes it:OrderdishesList) {

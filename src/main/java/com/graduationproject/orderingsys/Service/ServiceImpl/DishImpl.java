@@ -224,7 +224,7 @@ public class DishImpl implements DishService {
 
     /**
      * @description: 删除菜品
-     * @param dish_ID: 菜粕ID
+     * @param dish_ID: 菜品ID
      * @return boolean
      * @author: Dongrun Li
      * @date: 2023/4/4 13:04

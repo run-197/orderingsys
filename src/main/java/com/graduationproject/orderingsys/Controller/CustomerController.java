@@ -58,4 +58,16 @@ public class CustomerController {
             return false;
         return customerimpl.addNewCustomer(customer_nickname,phone_number,avatar_address,openID);
     }
+
+    @RequestMapping("/updateCustomer")
+    @ResponseBody
+    public Boolean updateCustomer(Integer customer_ID, String customer_nickname, String phone_number, String avatar_address){
+        return customerimpl.updateCustomer(customer_ID,customer_nickname,phone_number,avatar_address);
+    }
+    @RequestMapping("/hello")
+    @ResponseBody
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public String hello(){
+        return "OK";
+    }
 }

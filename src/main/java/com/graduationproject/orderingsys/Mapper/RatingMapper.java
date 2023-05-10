@@ -35,6 +35,16 @@ public interface RatingMapper {
      */
     List<Rating> queryRatingByDishID(Integer dish_ID);
 
+
+    /**
+     * @description: 根据菜品ID查找评分条数
+     * @param dish_ID:
+     * @return int
+     * @author: Dongrun Li
+     * @date: 2023/5/4 14:54
+     */
+    //int getCountofDish(Integer dish_ID);
+
     /**
      * @description: 更新评分信息
      * @param rating: 评分信息
