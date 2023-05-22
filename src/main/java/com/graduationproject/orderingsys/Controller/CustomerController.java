@@ -3,10 +3,13 @@ package com.graduationproject.orderingsys.Controller;
 import com.alibaba.fastjson.JSON;
 
 import com.graduationproject.orderingsys.DAO.Customer;
+import com.graduationproject.orderingsys.DAO.UserInfo;
 import com.graduationproject.orderingsys.Service.ServiceImpl.CustomerImpl;
 import com.graduationproject.orderingsys.utils.HttpRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * @BelongsProject: orderingsys
@@ -64,10 +67,36 @@ public class CustomerController {
     public Boolean updateCustomer(Integer customer_ID, String customer_nickname, String phone_number, String avatar_address){
         return customerimpl.updateCustomer(customer_ID,customer_nickname,phone_number,avatar_address);
     }
-    @RequestMapping("/hello")
+    @RequestMapping("/managelogin")
     @ResponseBody
     @CrossOrigin(origins = "*", maxAge = 3600)
-    public String hello(){
-        return "OK";
+    public String logIn(String username,String password){
+        System.out.println(username+' '+password);
+        if(Objects.equals(username, "admin") && Objects.equals(password, "100518"))
+            return "Admin";
+        else if(Objects.equals(username, "assistant") && Objects.equals(password, "100518"))
+            return "Assistant";
+        else
+            return "invalid";
+    }
+
+    @RequestMapping("/getuserinfo")
+    @ResponseBody
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public UserInfo getInfo(String token){
+        UserInfo userInfo=new UserInfo();
+        if(Objects.equals(token, "Admin")) {
+            userInfo.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+            userInfo.setIntroduction("管理员用户");
+            userInfo.setName("管理员");
+            userInfo.setRoles("admin");
+        }
+        else if(Objects.equals(token, "Assistant")) {
+            userInfo.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+            userInfo.setIntroduction("普通用户");
+            userInfo.setName("用户");
+            userInfo.setRoles("editor");
+        }
+        return userInfo;
     }
 }

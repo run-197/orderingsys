@@ -19,10 +19,10 @@
     </update>
 
     <insert id="addDish" parameterType="com.graduationproject.orderingsys.DAO.Dish">
-        insert into  dish(dish_name,dish_nuitprice,dish_rating,
-        monthly_sales,dish_rating,dish_description,picture_address)
-        values (#{dish_name},#{dish_nuitprice},#{dish_rating},
-        #{monthly_sales},#{dish_rating},#{dish_description},#{picture_address});
+        insert into  dish(dish_name,dish_nuitprice,monthly_sales,dish_quantity,
+        dish_rating,dish_description,picture_address)
+        values (#{dish_name},#{dish_nuitprice},#{monthly_sales},#{dish_quantity},
+        #{dish_rating},#{dish_description},#{picture_address});
         <selectKey keyProperty="dish_ID" order="AFTER" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>

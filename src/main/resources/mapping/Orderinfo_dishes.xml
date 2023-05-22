@@ -23,4 +23,7 @@
         delete from orderinfo_dishes where order_ID = #{order_ID};
     </delete>
 
+    <update id="delDishID">
+        update orderinfo_dishes set dish_ID = -3 where dish_ID = #{dish_ID};
+    </update>
 </mapper>

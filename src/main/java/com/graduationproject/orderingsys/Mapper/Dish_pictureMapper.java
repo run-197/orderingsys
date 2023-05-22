@@ -28,12 +28,12 @@ public interface Dish_pictureMapper {
 
     /**
      * @description: 上传菜品图片的List，新增多条记录，可用于管理员界面上传图片
-     * @param DishPicList: Dish_pic实体类列表
+     * @param dishPic: Dish_pic实体类
      * @return int
      * @author: Dongrun Li
      * @date: 2023/3/27 15:41
      */
-    int addDishPic(List<Dish_picture> DishPicList);
+    int addDishPic(Dish_picture dishPic);
 
 
     /**

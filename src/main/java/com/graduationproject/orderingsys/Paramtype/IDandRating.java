@@ -10,7 +10,7 @@ import java.util.List;
  * @Date: 2023/5/3 20:29
  * @Description:
  */
-public class IDandRating implements Serializable {
+public class    IDandRating implements Serializable {
     private Integer customer_ID;
     private Integer order_ID;
     private List<Integer> dish_ID;

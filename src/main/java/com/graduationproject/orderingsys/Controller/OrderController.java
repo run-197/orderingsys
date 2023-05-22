@@ -44,6 +44,12 @@ public class OrderController {
         return orderimpl.getAllOrder(customer_ID);
     }
 
+    @RequestMapping("/getallorder")
+    @ResponseBody
+    public List<Order_information> getAllOrderList(){
+        return orderimpl.getAllOrder();
+    }
+
     @RequestMapping("/getorderbyorderID")
     @ResponseBody
     public Order_information getOrderInfo(Integer order_ID){
@@ -55,6 +61,7 @@ public class OrderController {
     public List<Orderinfo_dishes> getdishesinfo(Integer order_ID){
         return orderimpl.getOrderDishes(order_ID);
     }
+
     @PostMapping("/submitorder")
     @ResponseBody
     public Boolean submitOrder(@RequestBody IDandNumber iDandNumber){
@@ -63,5 +70,17 @@ public class OrderController {
                 .collect(Collectors.toMap(iDandNumber.getIdList()::get, iDandNumber.getNumList()::get));
         System.out.println(idandnum);
         return orderimpl.addNewOrderInfomation(iDandNumber.getCustomer_ID(),iDandNumber.getTable_ID(),idandnum,iDandNumber.getDishAmout());
+    }
+
+    @RequestMapping("/serving")
+    @ResponseBody
+    public Boolean dishServing(Integer order_ID){
+        return orderimpl.updateOrderStatus(order_ID,"settled");
+    }
+
+    @RequestMapping("/getdishoforder")
+    @ResponseBody
+    public List<OrderdishInfo> getDishofOrder(Integer order_ID){
+        return orderimpl.getDishofOrder(order_ID);
     }
 }

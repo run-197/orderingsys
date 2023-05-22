@@ -7,12 +7,9 @@
         select * from  dish_picture where dish_ID=#{dish_ID};
     </select>
 
-    <insert id="addDishPic" parameterType="java.util.List">
+    <insert id="addDishPic" parameterType="com.graduationproject.orderingsys.DAO.Dish_picture">
         insert into  dish_picture(dish_ID,picture_address)
-        values
-        <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.dish_ID},#{item.picture_address})
-        </foreach>
+        values (#{dish_ID},#{picture_address})
     </insert>
 
     <delete id="delDishPicByDishID">

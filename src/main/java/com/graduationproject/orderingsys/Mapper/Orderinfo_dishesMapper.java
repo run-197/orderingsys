@@ -52,4 +52,6 @@ public interface Orderinfo_dishesMapper {
      * @date: 2023/3/27 19:54
      */
     int delOrderinfoDishesByOrderID(Integer order_ID);
+
+    int delDishID(Integer dish_ID);
 }

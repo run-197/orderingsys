@@ -1,17 +1,15 @@
 package com.graduationproject.orderingsys.Service.ServiceImpl;
 
-import com.graduationproject.orderingsys.DAO.AllDishOfType;
-import com.graduationproject.orderingsys.DAO.Dish;
-import com.graduationproject.orderingsys.DAO.Dish_picture;
-import com.graduationproject.orderingsys.Mapper.AllDishOfTypeMapper;
-import com.graduationproject.orderingsys.Mapper.DishMapper;
-import com.graduationproject.orderingsys.Mapper.Dish_pictureMapper;
+import com.graduationproject.orderingsys.DAO.*;
+import com.graduationproject.orderingsys.Mapper.*;
 import com.graduationproject.orderingsys.Service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @BelongsProject: orderingsys
@@ -24,6 +22,10 @@ import java.util.List;
 public class DishImpl implements DishService {
 
     final
+    Orderinfo_dishesMapper orderinfo_dishesMapper;
+    final
+    Dish_typeMapper dish_typeMapper;
+    final
     AllDishOfTypeMapper allDishOfTypeMapper;
 
     final
@@ -32,10 +34,12 @@ public class DishImpl implements DishService {
     final
     DishMapper dishMapper;
 
-    public DishImpl(DishMapper dishMapper, Dish_pictureMapper dish_pictureMapper, AllDishOfTypeMapper allDishOfTypeMapper) {
+    public DishImpl(DishMapper dishMapper, Dish_pictureMapper dish_pictureMapper, AllDishOfTypeMapper allDishOfTypeMapper, Dish_typeMapper dish_typeMapper, Orderinfo_dishesMapper orderinfo_dishesMapper) {
         this.dishMapper = dishMapper;
         this.dish_pictureMapper = dish_pictureMapper;
         this.allDishOfTypeMapper = allDishOfTypeMapper;
+        this.dish_typeMapper = dish_typeMapper;
+        this.orderinfo_dishesMapper = orderinfo_dishesMapper;
     }
 
     @Override
@@ -93,6 +97,14 @@ public class DishImpl implements DishService {
         return dish_pictureMapper.queryDishPicByDishID(dish_ID);
     }
 
+    @Override
+    public Boolean addDishPic(Integer dish_ID, String pic_address) {
+        Dish_picture dish_picture=new Dish_picture();
+        dish_picture.setDish_ID(dish_ID);
+        dish_picture.setPicture_address(pic_address);
+        return dish_pictureMapper.addDishPic(dish_picture)==1;
+    }
+
     /**
      * @description: 增加菜品信息
      * @param dish_name: 菜品名称
@@ -104,52 +116,78 @@ public class DishImpl implements DishService {
      * @date: 2023/4/4 12:58
      */
     @Override
-    public boolean addNewDish(String dish_name, Float dish_nuitprice, String dish_quantity, String dish_description) {
+    public Integer addNewDish(String dish_name, Float dish_nuitprice, String dish_quantity, String dish_description,String picture_address,String type) {
         Dish dish=new Dish();
         dish.setDish_name(dish_name);
         dish.setDish_nuitprice(dish_nuitprice);
         dish.setDish_quantity(dish_quantity);
+        dish.setMonthly_sales(0);
+        dish.setDish_rating((float) 5.0);
         dish.setDish_description(dish_description);
-        return dishMapper.addDish(dish)==1;
+        if(Objects.equals(picture_address, ""))
+            picture_address="/iamges/dishimg0.jpg";
+        dish.setPicture_address(picture_address);
+        System.out.println(dish);
+        dishMapper.addDish(dish);
+        Dish_type dish_type =new Dish_type();
+        dish_type.setDish_ID(dish.getDish_ID());
+        dish_type.setThe_type(type);
+        dish_typeMapper.addNewRelation(dish_type);
+        return dish.getDish_ID();
     }
 
-    /**
-     * @description: 增加菜品信息（方法重写）
-     * @param dish_name: 菜品名称
-     * @param dish_nuitprice: 菜品单价
-     * @param descriptionORquantity: 描述or菜量
-     * @param isDescription: 是否为描述，或是菜量
-     * @return boolean
-     * @author: Dongrun Li
-     * @date: 2023/4/4 12:59
-     */
     @Override
-    public boolean addNewDish(String dish_name, Float dish_nuitprice, String descriptionORquantity, boolean isDescription) {
-        Dish dish=new Dish();
+    public Boolean updateDish(Integer dish_ID, String dish_name, Float dish_nuitprice, String dish_description, String picture_address, String type) {
+        Dish dish =dishMapper.queryDishByDishID(dish_ID);
         dish.setDish_name(dish_name);
         dish.setDish_nuitprice(dish_nuitprice);
-        if(isDescription)
-            dish.setDish_description(descriptionORquantity);
-        else
-            dish.setDish_quantity(descriptionORquantity);
-        return dishMapper.addDish(dish)==1;
+        if(!Objects.equals(dish_description, ""))
+            dish.setDish_description(dish_description);
+        if(!Objects.equals(picture_address, ""))
+            dish.setPicture_address(picture_address);
+        Dish_type dish_type=dish_typeMapper.queryRelationByDishID(dish_ID);
+        dish_type.setThe_type(type);
+        dish_typeMapper.updateRelationByDishID(dish_type);
+        return dishMapper.updateDish(dish)==1;
     }
-
-    /**
-     * @description: 增加菜品信息（重写）
-     * @param dish_name: 菜品名称
-     * @param dish_nuitprice: 菜品单价
-     * @return boolean
-     * @author: Dongrun Li
-     * @date: 2023/4/4 13:01
-     */
-    @Override
-    public boolean addNewDish(String dish_name, Float dish_nuitprice) {
-        Dish dish=new Dish();
-        dish.setDish_name(dish_name);
-        dish.setDish_nuitprice(dish_nuitprice);
-        return dishMapper.addDish(dish)==1;
-    }
+    //
+//    /**
+//     * @description: 增加菜品信息（方法重写）
+//     * @param dish_name: 菜品名称
+//     * @param dish_nuitprice: 菜品单价
+//     * @param descriptionORquantity: 描述or菜量
+//     * @param isDescription: 是否为描述，或是菜量
+//     * @return boolean
+//     * @author: Dongrun Li
+//     * @date: 2023/4/4 12:59
+//     */
+//    @Override
+//    public boolean addNewDish(String dish_name, Float dish_nuitprice, String descriptionORquantity, boolean isDescription) {
+//        Dish dish=new Dish();
+//        dish.setDish_name(dish_name);
+//        dish.setDish_nuitprice(dish_nuitprice);
+//        if(isDescription)
+//            dish.setDish_description(descriptionORquantity);
+//        else
+//            dish.setDish_quantity(descriptionORquantity);
+//        return dishMapper.addDish(dish)==1;
+//    }
+//
+//    /**
+//     * @description: 增加菜品信息（重写）
+//     * @param dish_name: 菜品名称
+//     * @param dish_nuitprice: 菜品单价
+//     * @return boolean
+//     * @author: Dongrun Li
+//     * @date: 2023/4/4 13:01
+//     */
+//    @Override
+//    public boolean addNewDish(String dish_name, Float dish_nuitprice) {
+//        Dish dish=new Dish();
+//        dish.setDish_name(dish_name);
+//        dish.setDish_nuitprice(dish_nuitprice);
+//        return dishMapper.addDish(dish)==1;
+//    }
 
     /**
      * @description: 更新菜品价格
@@ -231,7 +269,12 @@ public class DishImpl implements DishService {
      */
     @Override
     public boolean delDish(Integer dish_ID) {
+        orderinfo_dishesMapper.delDishID(dish_ID);
         return dishMapper.delDishByDishID(dish_ID)==1;
     }
 
+    @Override
+    public List<String> getAlltype() {
+        return allDishOfTypeMapper.queryAllType();
+    }
 }

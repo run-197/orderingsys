@@ -7,6 +7,10 @@
         select * from  order_information where order_ID=#{order_ID};
     </select>
 
+    <select id="queryOrderinfo" resultType="com.graduationproject.orderingsys.DAO.Order_information">
+        select * from  order_information;
+    </select>
+
     <insert id="addOrderinfo" parameterType="com.graduationproject.orderingsys.DAO.Order_information">
         insert into  order_information(table_ID,order_status,total_amount,item_quantity,order_time,comment)
         values (#{table_ID},#{order_status},#{total_amount},#{item_quantity},#{order_time},#{comment});

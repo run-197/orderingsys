@@ -4,6 +4,8 @@ import com.graduationproject.orderingsys.DAO.Order_information;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @BelongsProject: orderingsys
  * @BelongsPackage: com.graduationproject.orderingsys.Mapper
@@ -23,6 +25,8 @@ public interface Order_informationMapper {
      * @date: 2023/3/27 18:04
      */
     Order_information queryOrderinfoByOrderID(Integer order_ID);
+
+    List<Order_information> queryOrderinfo();
 
     /**
      * @description: 增加一条订单信息的记录

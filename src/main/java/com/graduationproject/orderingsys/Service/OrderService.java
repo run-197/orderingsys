@@ -2,6 +2,7 @@ package com.graduationproject.orderingsys.Service;
 
 
 import com.graduationproject.orderingsys.DAO.Order_information;
+import com.graduationproject.orderingsys.DAO.OrderdishInfo;
 import com.graduationproject.orderingsys.DAO.Orderinfo_dishes;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface OrderService {
     boolean addNewOrderInfomation(Integer customer_ID,Integer table_ID, Map<Integer,Integer> dish_IDandNumber,Float total_amount);
     boolean updateOrderStatus(Integer order_ID,String order_status);
     List<Order_information> getAllOrder(Integer customer_ID);
+    List<Order_information> getAllOrder();
     List<Orderinfo_dishes> getOrderDishes(Integer order_ID);
     Order_information getOrderInfo(Integer order_ID);
+    List<OrderdishInfo> getDishofOrder(Integer order_ID);
 }

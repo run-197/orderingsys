@@ -13,8 +13,8 @@
         where dish_ID=#{dish_ID}
     </update>
 
-    <select id="queryRelationByDishID" resultType="java.lang.String">
-        select the_type from  Dish_type where dish_ID=#{dish_ID};
+    <select id="queryRelationByDishID" resultType="com.graduationproject.orderingsys.DAO.Dish_type">
+        select * from  Dish_type where dish_ID=#{dish_ID};
     </select>
 
 

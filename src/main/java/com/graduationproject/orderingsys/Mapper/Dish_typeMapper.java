@@ -17,5 +17,5 @@ import org.springframework.stereotype.Repository;
 public interface Dish_typeMapper {
     int addNewRelation(Dish_type dish_type);
     int updateRelationByDishID(Dish_type dish_type);
-    String queryRelationByDishID(Integer dish_Id);
+    Dish_type queryRelationByDishID(Integer dish_Id);
 }

@@ -1,9 +1,6 @@
 package com.graduationproject.orderingsys.Service.ServiceImpl;
 
-import com.graduationproject.orderingsys.DAO.Customerorder_info;
-import com.graduationproject.orderingsys.DAO.Dish;
-import com.graduationproject.orderingsys.DAO.Order_information;
-import com.graduationproject.orderingsys.DAO.Orderinfo_dishes;
+import com.graduationproject.orderingsys.DAO.*;
 import com.graduationproject.orderingsys.Mapper.Customerorder_infoMapper;
 import com.graduationproject.orderingsys.Mapper.DishMapper;
 import com.graduationproject.orderingsys.Mapper.Order_informationMapper;
@@ -127,6 +124,10 @@ public class OrderImpl implements OrderService {
         }
         return Order_informationList;
     }
+    @Override
+    public List<Order_information> getAllOrder() {
+        return order_informationMapper.queryOrderinfo();
+    }
 
     /**
      * @description: 获取某个订单的所有菜品信息
@@ -152,4 +153,19 @@ public class OrderImpl implements OrderService {
         return order_informationMapper.queryOrderinfoByOrderID(order_ID);
     }
 
+    @Override
+    public List<OrderdishInfo> getDishofOrder(Integer order_ID) {
+        List<OrderdishInfo> orderdishInfoList = new ArrayList<>();
+        List<Orderinfo_dishes> orderinfo_dishesList=orderinfo_dishesMapper.queryOrderinfoDishesByOrderID(order_ID);
+        for (Orderinfo_dishes orderinfo_dishes:orderinfo_dishesList) {
+            OrderdishInfo orderdishInfo = new OrderdishInfo();
+            orderdishInfo.setDish_num(orderinfo_dishes.getDish_number());
+            Dish dish = dishMapper.queryDishByDishID(orderinfo_dishes.getDish_ID());
+            orderdishInfo.setDish_ID(dish.getDish_ID());
+            orderdishInfo.setDish_name(dish.getDish_name());
+            orderdishInfo.setDish_nuitprice(dish.getDish_nuitprice());
+            orderdishInfoList.add(orderdishInfo);
+        }
+        return orderdishInfoList;
+    }
 }
