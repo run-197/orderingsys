@@ -1,0 +1,57 @@
+/* pages/order/orderdetail.wxss */
+.container{
+  background-color:rgb(230, 240, 255);/*darkseagreen*/
+  border-radius: 25rpx;
+  margin-top:20rpx;
+  margin-left: 5%;
+  box-shadow: 6px 6px 6px #aaa;
+  height: 320rpx ;
+  width: 90% !important;
+  padding: 0;
+}
+.dishcontainer{
+  display: flex;
+  flex-direction: row;
+  background-color:rgb(180, 200, 255);/*darkseagreen*/
+  border-radius: 25rpx;
+  margin-top:10rpx !important;
+  margin-bottom: 20rpx !important;
+  box-shadow: 6px 6px 6px #aaa;
+  height: 250rpx ;
+  width: 95% !important;
+}
+
+.orderstatusbar{
+  display: flex;
+  align-items:center ;
+  flex-direction: row;
+  width: 100% !important;
+  height: 50% !important;
+  margin-top: 50rpx;
+}
+
+.dishimg{
+  display: block;
+  padding: 3% !important;
+  width: 42% !important;
+  height: 180rpx !important;
+  border-radius: 25rpx;
+}
+.ordertext{
+  display: block;
+  margin-top:3%;
+  width: 40% !important;
+  height: 160rpx !important;
+}
+.bottombar{
+  position: absolute;
+  display:flex;
+  align-items:center !important;
+  bottom:5px;
+  width: 90% !important;
+  height: 155rpx;
+  background-color:rgb(230, 240, 255);/*darkseagreen*/
+  border-radius: 25rpx;
+  margin-left: 5%;
+  box-shadow: 6px -6px 6px #aaa;
+}

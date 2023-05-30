@@ -1,0 +1,34 @@
+<!--pages/home/dishdetail.wxml-->
+<van-nav-bar title="菜品详情" title-class="navTitle" left-text="返回" left-arrow bind:click-left="onClickLeft" />
+
+<view class="dishpic-container">
+  <swiper indicator-dots="{{true}}" autoplay="{{autoplay}}" interval="{{interval}}">
+    <block wx:for="{{dishpicList}}" wx:key="index">
+      <swiper-item>
+        <image mode="aspectFit" src="{{item.picture_address}}"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<van-divider />
+<view class="container" style="height: 320rpx;">
+  <view style="width: 50%;margin-left:-40%;">
+    <view class="dishname">{{dish.dish_name}}</view>
+  </view>
+  <view style="width: 50%;margin-left:-40%;margin-top: 2rpx;">
+    <view class="pricestyle">¥{{dish.dish_nuitprice}}</view>
+  </view>
+  <block wx:if="{{dish.dish_description}}">  
+  <view style="width: 50%;margin-left:-40%;margin-top: 2rpx;">
+  <view>{{dish.dish_description}}</view>
+  </view>
+  </block>
+
+  <view style="width: 50%;margin-left:-40%;margin-top: 2rpx;">
+  <view>月销量：{{dish.monthly_sales}}</view>
+  </view>
+  <view style="width: 50%;margin-left:-40%;margin-top: 2rpx;"
+  ><van-rate readonly allow-half value="{{ dish.dish_rating }}" style="left: 2%;" />
+  </view>
+</view>
+

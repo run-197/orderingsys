@@ -1,0 +1,27 @@
+<!--pages/order/order.wxml-->
+<van-sticky>
+<van-nav-bar
+  title="订单"
+  title-class="navTitle"
+/>
+</van-sticky>
+<block wx:if="{{isorderEmpty}}">
+  <van-empty description="还没有待上餐的订单">
+    <van-button round type="danger" class="bottom-button" bindtap="skip2home">去点菜</van-button>
+  </van-empty>
+</block>
+<block wx:else>
+  <block wx:for="{{orderList4show}}" wx:key="index">
+    <component-orderinfo 
+    order_ID="{{item.order_ID}}"
+    orderstatus="{{item.order_status}}" 
+    ordertime="{{item.order_time}}"
+    table_ID="{{item.table_ID}}"
+    item_quantity="{{item.item_quantity}}"
+    totalamount="{{item.total_amount}}"
+    bind:skip2detail="skip2orderdetail"
+    ></component-orderinfo>
+  </block>
+  <view class="blanktofill"></view>
+</block>
+ 

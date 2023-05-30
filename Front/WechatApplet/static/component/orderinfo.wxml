@@ -1,0 +1,39 @@
+<wxs module="Time" src="./utils.wxs"></wxs>
+<view class="container" bindtap="skip2detail">
+  <view class="orderstatusbar">
+      <block wx:if="{{orderstatus=='Submitted'}}">
+        <van-tag round 
+        type="primary"
+        size="large"
+        style="margin-left: 8%;">
+        待上餐</van-tag>
+      </block>
+      <block wx:elif="{{orderstatus=='settled'}}" >
+        <van-tag round
+        type="warning"
+        size="large"
+        style="margin-left: 8%;">
+        待评价</van-tag>
+      </block>
+      <block wx:else="{{orderstatus=='commented'}}" >
+        <van-tag round
+        type="success"
+        size="large"
+        style="margin-left: 8%;">
+        已完成</van-tag>
+      </block>
+      <view class="datetext"><text>{{ordertime}}</text></view>
+  </view>
+  <van-divider style="height: 3rpx; display: block; box-sizing: border-box" />
+  <view class="orderinfopanel">
+    <image class="orderimg" src="/iamges/dishimg0.jpg"></image>
+    <view class="ordertext" >
+    <view>
+    <text>第{{table_ID}}桌</text></view>
+    <view>
+    <text>共{{item_quantity}}件菜品</text></view>
+    <view>
+    <text>合计￥{{totalamount}}元</text></view>
+    </view>
+  </view>
+</view>

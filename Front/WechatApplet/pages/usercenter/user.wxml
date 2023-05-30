@@ -1,0 +1,39 @@
+<!--pages/usercenter/user.wxml-->
+<van-nav-bar title="用户中心" title-class="navTitle" />
+
+<view class="container">
+  <image class='picbackground' src="/iamges/bg.jpg" mode="scaleToFill"></image>
+  <view class="userinfopanel">
+    <block wx:if="{{!hasUserInfo}}">
+      <!-- <block wx:if="{{1==1}}"> -->
+      <button bindtap="getUserProfile" class="getinfobutton">
+        授权登录</button>
+    </block>
+
+    <block wx:else>
+      <view class="userinfo">
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{nickName}}</text>
+      </view>
+    </block>
+  </view>
+</view>
+<view class="container" style="height: 500rpx;margin-top: 50rpx;">
+  <view class="container" style="margin-left:0;background-color: rgb(153, 204, 255);height: 210rpx;" bindtap="skip2myorder">
+    <text style="font-weight: bold;margin-top: auto;margin-bottom: auto;">查看历史订单</text>
+  </view>
+  <view class="container" style="margin-left:0;background-color: rgb(153, 204, 255);height: 210rpx;margin-top:5rpx ;margin-bottom: 20rpx;" bindtap="skip2updateinfo">
+    <text style="font-weight: bold;margin-top: auto;margin-bottom: auto;">修改个人信息</text>
+  </view>
+  <!-- <view class="container" style="margin-left:0;background-color: rgb(153, 204, 255);height: 210rpx;margin-top:5rpx ;margin-bottom: 20rpx;" bindtap="about">
+    <text style="font-weight: bold;margin-top: auto;margin-bottom: auto;">关于我们</text>
+  </view> -->
+</view>
+<view style="width: 60%;margin-left: 20%;margin-top:80rpx;">
+<view class="go-center" style='font-size:14px;color:blue;width: 80%;margin-left: 10%;' bindtap='bitphone'>
+  <text style="color: black;">客服电话：</text><label style='border-bottom:1px solid blue'>12323456789</label>
+</view>
+<view class='go-center' style='margin-top:10px;width: 90%;margin-left: 5%;'>
+  <label style='font-size:12px;color:#E2E2E2'>[服务时间 周一至周六 9:00-23:00]</label>
+</view>
+</view>

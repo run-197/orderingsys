@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/shopcart/toBesettle",
+    "pages/usercenter/user",
+    "pages/order/order",
+    "pages/home/dishdetail",
+    "pages/usercenter/userinfo",
+    "pages/order/orderdetail",
+    "pages/usercenter/myorder",
+    "pages/usercenter/updateinfo",
+    "pages/order/comment",
+    "pages/usercenter/about"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "backgroundColor": "#000000",
+    "list": [{
+        "pagePath": "pages/home/index"
+      },
+      {
+        "pagePath": "pages/order/order"
+      },
+      {
+        "pagePath": "pages/usercenter/user"
+      }
+    ]
+  },
+  "entryPagePath": "pages/home/index",
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-empty": "@vant/weapp/empty/index",
+    "van-nav-bar": "@vant/weapp/nav-bar/index",
+    "van-tabbar": "@vant/weapp/tabbar/index",
+    "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-skeleton": "@vant/weapp/skeleton/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index",
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-area": "@vant/weapp/area/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-card": "@vant/weapp/card/index",
+    "van-image": "@vant/weapp/image/index",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-checkbox-group": "@vant/weapp/checkbox-group/index",
+    "van-submit-bar": "@vant/weapp/submit-bar/index",
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-rate": "@vant/weapp/rate/index",
+    "van-sticky": "@vant/weapp/sticky/index"
+  },
+  "useExtendedLib": {
+    "weui": true
+  }
+}

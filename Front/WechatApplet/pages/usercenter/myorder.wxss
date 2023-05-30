@@ -1,0 +1,4 @@
+/* pages/usercenter/myorder.wxss */
+.blanktofill{
+  height: 100rpx;
+}

@@ -1,0 +1,80 @@
+/* pages/usercenter/user.wxss */
+/* pages/my/my.wxss */
+
+.userinfopanel {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.getinfobutton{
+  position: relative;
+}
+.userinfo{
+  position: relative; 
+  top: -80rpx; 
+  width: 350rpx; 
+  height: 280rpx; 
+  display: block;
+}
+
+.icon{
+  float: right;
+  position: absolute;
+  right: 10px;
+  top: 70px;
+}
+.userinfo-avatar {
+  width: 200rpx !important;
+  height: 200rpx !important;
+  text-align:center !important;
+  position: absolute;
+  left: 75rpx;
+  top:0;
+  border-radius: 50%;
+}
+
+.userinfo-nickname{
+  color: rgb(0, 0, 0);
+  width: 200rpx !important;
+  height: 60rpx !important;
+  font-weight: 700;
+  position: absolute;
+  left: 75rpx;
+  bottom: 0;
+  text-align: center;
+}
+
+.getuser{
+  width: 200rpx !important;
+  height: 200rpx !important;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.692);
+  color: rgba(0, 0, 0, 0.650);
+  text-align: center;
+  padding: 50rpx;
+}
+
+.container{
+  background-color:rgba(255, 255, 255, 0.274);/*darkseagreen*/
+  border-radius: 25rpx;
+  margin-top:20rpx;
+  margin-left: 5%;
+  box-shadow: 2px 4px 5px #aaa;
+  height: 320rpx ;
+  width: 90% !important;
+  padding: 0;
+}
+
+.gridtext{
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.picbackground {
+  position: absolute;
+  height: 320rpx !important;
+  width: 90.5% !important;
+  border-radius: 25rpx;
+  z-index: -1;
+}

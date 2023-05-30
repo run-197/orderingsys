@@ -1,0 +1,89 @@
+<!--pages/home/dishdetail.wxml-->
+<van-nav-bar title="订单详情" title-class="navTitle" left-text="返回" left-arrow bind:click-left="onClickLeft" />
+
+<view class="container" style="height: 210rpx;">
+
+  <block wx:if="{{orderInfo.order_status=='Submitted'}}">
+    <!-- <block wx:if="{{true}}"> -->
+    <!-- <block wx:if="{{false}}"> -->
+    <view class="orderstatusbar">
+      <view style="flex-direction: column; width: 400rpx;  display: block; box-sizing: border-box">
+        <text style="margin-left:6%;font-size: x-large;color: rgb(0,0,153);text-shadow: 2px 2px 4px rgb(153, 204, 255);text-align: center;">订单已提交\n</text>
+        <text style="margin-left:6%;font-size: small;color: red;text-align: center;">共计:￥{{orderInfo.total_amount}}元</text>
+      </view>
+      <view style="flex-direction: column; margin-left: 10%; width: 350rpx;  display: block; box-sizing: border-box"><text style="margin-left:10%;margin-top:10%;font-size: small;color: rgb(0,0,153);">桌号:{{orderInfo.table_ID}}\n</text>
+        <text style="margin-left:10%;margin-top:10%;font-size: small;color: rgb(0,0,153);">提交时间{{ordertime}}</text>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{orderInfo.order_status=='settled'}}">
+    <!-- <block wx:if="{{true}}"> -->
+    <!-- <block wx:if="{{false}}"> -->
+    <view class="orderstatusbar">
+      <view style="flex-direction: column; width: 400rpx;  display: block; box-sizing: border-box">
+        <text style="margin-left:6%;font-size: x-large;color: rgb(0,0,153);text-shadow: 2px 2px 4px rgb(153, 204, 255);text-align: left;">订单待评价\n</text>
+        <text style="margin-left:6%;font-size: small;color: red;text-align: center;">共计:￥{{orderInfo.total_amount}}元</text>
+      </view>
+      <view style="flex-direction: column; margin-left: 10%; width: 350rpx;  display: block; box-sizing: border-box"><text style="margin-left:10%;margin-top:10%;font-size: small;color: rgb(0,0,153);">桌号:{{orderInfo.table_ID}}\n</text>
+        <text style="margin-left:10%;margin-top:10%;font-size: small;color: rgb(0,0,153);">提交时间{{ordertime}}</text>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{orderInfo.order_status=='commented'}}">
+    <!-- <block wx:if="{{true}}"> -->
+    <!-- <block wx:if="{{false}}"> -->
+    <view class="orderstatusbar">
+      <view style="flex-direction: column; width: 400rpx;  display: block; box-sizing: border-box">
+        <text style="margin-left:6%;font-size: x-large;color: rgb(0,0,153);text-shadow: 2px 2px 4px rgb(153, 204, 255);text-align: left;">订单已完成\n</text>
+        <text style="margin-left:6%;font-size: small;color: red;text-align: center;">共计:￥{{orderInfo.total_amount}}元</text>
+      </view>
+      <view style="flex-direction: column; margin-left: 10%; width: 350rpx;  display: block; box-sizing: border-box"><text style="margin-left:10%;margin-top:10%;font-size: small;color: rgb(0,0,153);">桌号:{{orderInfo.table_ID}}\n</text>
+        <text style="margin-left:10%;margin-top:10%;font-size: small;color: rgb(0,0,153);">提交时间{{ordertime}}</text>
+      </view>
+    </view>
+  </block>
+
+</view>
+<van-divider />
+<scroll-view scroll-y style="height: {{scrollheight}}rpx; display: block;">
+  <view class="container" style="margin-top:0;padding-top: 20rpx;height: {{dishtypenum*280+30}}rpx;">
+    <block wx:for="{{dishinfolist}}" wx:key="index">
+      <view class="dishcontainer">
+        <image class="dishimg" src="{{item.imgurl}}" mode="scaleToFill"></image>
+        <view class="ordertext">
+          <view>
+            <text style="font-weight: bold;">{{item.name}}</text>
+          </view>
+          <view style="margin-top: 35%;">
+            <text style="color:red;font-size: larger;">￥{{item.price}}</text> <text style="font-size: small;"> * {{item.amount}}</text>
+          </view>
+
+        </view>
+      </view>
+    </block>
+  </view>
+</scroll-view>
+
+<view class="bottombar" style="position: absolute; left: 0rpx; bottom: 10rpx">
+  <block wx:if="{{orderInfo.order_status=='Submitted'}}">
+    <!-- <block wx:if="{{true}}"> -->
+    <!-- <block wx:if="{{false}}"> -->
+    <text style="width:60%;margin-left:20% ;font-weight: bold;text-align: center;">正在备餐中，请稍后……</text>
+  </block>
+  <block wx:if="{{orderInfo.order_status=='settled'}}">
+    <!-- <block wx:if="{{true}}"> -->
+    <view style="display: flex;flex-direction: row;width: 80%;margin-left: 10%;">
+      <van-button style="position: relative; font-size: normal; width: 250rpx; height: 100rpx; left: 0rpx;" size="large" color="#7C73D8" round bindtap="skip2comment">去评价</van-button>
+      <van-button style="position: relative; right: rpx; font-size: normal; width: 250rpx; height: 100rpx; left: 40rpx; " size="large" color="#7C73D8" round bindtap="skip2home">再来一单</van-button>
+    </view>
+  </block>
+
+  <block wx:if="{{orderInfo.order_status=='commented'}}">
+    <view style="display: flex;flex-direction: row;width: 80%;margin-left: 10%;">
+      <van-button style="position: relative; font-size: normal; width: 250rpx; height: 100rpx; left: 0rpx;" size="large" color="#7C73D8" round bindtap="skip2comment">查看评价</van-button>
+      <van-button style="position: relative; right: rpx; font-size: normal; width: 250rpx; height: 100rpx; left: 40rpx; " size="large" color="#7C73D8" round bindtap="skip2home">再来一单</van-button>
+    </view>
+  </block>
+</view>

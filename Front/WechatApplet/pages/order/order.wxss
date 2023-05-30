@@ -1,0 +1,8 @@
+/* pages/order/order.wxss */
+.bottom-button {
+  width: 200rpx;
+  height: 40rpx;
+}
+.blanktofill{
+  height: 300rpx;
+}

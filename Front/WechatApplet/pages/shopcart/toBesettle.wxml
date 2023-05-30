@@ -1,0 +1,41 @@
+<!--pages/shopcart.wxml-->
+<van-nav-bar title="订单详情" title-class="navTitle" 
+  left-text="返回" left-arrow
+ bind:click-left="onClickLeft"/>
+
+ <scroll-view
+  scroll-y
+  lower-threshold="500"
+  style="height: {{scrollheight}}rpx; display: block; box-sizing: border-box;"
+  scroll-with-animation="{{true}}"
+  refresher-default-style="black"
+  refresher-triggered="{{triggered}}"
+  bindscrolltolower="setShowlist"
+>
+<view wx:for="{{tobeSettledishesList}}" wx:key="index" >
+    <van-card
+    num="{{dishamount[item.dish_ID]}}"
+    price="{{item.dish_nuitprice}}"
+    desc="{{item.dish_description}}"
+    title="{{item.dish_name}}"
+    thumb="{{item.picture_address}}"
+    custom-class="card-custom-class"
+    title-class="card-title"
+    price-class="card-price"
+    desc-class="card-desc"
+    num-class="card-num"
+  >
+  </van-card>
+
+</view>
+</scroll-view>
+<van-submit-bar
+  price="{{totalamount*100}}"
+  button-text="提交订单"
+  bind:submit="onSubmit"
+/>
+ 
+
+
+
+

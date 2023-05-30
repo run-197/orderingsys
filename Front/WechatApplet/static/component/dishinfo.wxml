@@ -1,0 +1,14 @@
+<wxs module="filters" src="./utils.wxs"></wxs>
+  <view style=" display: flex; flex-direction: row;background-color: #fafad2;  border-radius: 20rpx;margin-top: 5px;">
+  <image mode="aspectFit" class="img" src="{{image_url}}"></image>
+
+  <view style="width: 30%;">
+  <view class="dishtitle">{{dishname}}</view>
+  <view class="dishprice">￥{{filters.toFix(dishnuitprice*dishnum)}}</view>
+  </view>
+<view class="buttonstyle">  
+<van-button style="float: left;" icon="minus" size="mini" color ="red" round="true" bindtap="subinCart"></van-button>
+  <text style="flex:1;text-align: center;">{{dishnum}}</text>
+<van-button  style="float: right;" icon="plus"size="mini" color ="red"round="true"bindtap="addinCart"></van-button></view>
+
+  </view>

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "component-orderinfo":"/static/component/orderinfo"
+  }
+  
+}

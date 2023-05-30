@@ -1,0 +1,20 @@
+<van-nav-bar title="修改个人信息" title-class="navTitle" 
+  left-text="返回" left-arrow
+ bind:click-left="onClickLeft"/>
+
+<view data-weui-theme="{{theme}}">
+  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+    <image class="avatar" src="{{avatarUrl}}"></image>
+  </button> 
+  <form bindsubmit="formSubmit">
+    <mp-cells>
+      <mp-cell title="昵称:">
+        <input type="nickname" style="margin: 30rpx 30rpx" name="nickname" placeholder="请输入昵称"/>
+      </mp-cell>
+      <mp-cell title="电话:">
+        <input type="number" style="margin: 30rpx 30rpx" name="phone_number" placeholder="请输入手机号码"/>
+      </mp-cell>
+      <button style="margin: 30rpx 0" type="primary" 	formType="submit"  >提交</button>
+    </mp-cells>
+  </form>
+</view>

@@ -1,0 +1,20 @@
+/* pages/shopcart.wxss */
+.card-custom-class{
+  margin:10rpx !important;
+  border-radius: 50rpx !important;
+  background-color: #fafad2 !important;
+  /* background-color: whitesmoke; */
+}
+.card-title{
+  font-size: larger !important;
+  margin-top: 5% !important;
+}
+.card-price{
+  font-size: larger !important;
+}
+.card-desc{
+  font-size: larger !important;
+}
+.card-num{
+  font-size: larger !important;
+}

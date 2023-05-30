@@ -1,0 +1,67 @@
+/**index.wxss**/
+.swiper-container swiper{
+  overflow: hidden;
+  border-radius: 0rpx;
+  box-sizing: border-box;
+  width: 100%;
+  transform: translateY(0); 
+  line-height: 1rpx; 
+  height:300rpx;
+}
+
+.van-sidebar-item {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  overflow: scroll;
+  color: #323233;
+  font-size: 14px;
+  line-height: 20px;
+  background-color: #f7f8fa;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.flexdisplay{
+  display: flex;
+}
+.carticonstyle{
+  z-index: 3;
+  position: fixed;
+  right: 60rpx;
+  bottom: 170rpx;
+  width:135rpx;
+  height: 135rpx;
+}
+.cartinfostyle{
+  border-radius:50rpx;
+  z-index: 2;
+  position: fixed;
+  left: 60rpx;
+  bottom: 170rpx;
+  width:80%;
+  height: 135rpx;
+  background-color:#f8ece1
+}
+.carttext{
+  font-size:smaller ;
+  margin: 50rpx;
+  text-align: center;
+  color: red;
+}
+.image_1 {
+  width: 300rpx;
+  height: 150rpx;
+}
+.buttonstyle{
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 35%;
+}
+.blanktofill{
+  height: 300rpx;
+}
+.van-card{
+  
+}

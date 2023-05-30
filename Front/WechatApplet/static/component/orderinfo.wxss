@@ -1,0 +1,39 @@
+.container{
+  background-color:rgba(255, 255, 255, 0.274);/*darkseagreen*/
+  border-radius: 25rpx !important;
+  margin-top:20rpx !important;
+  margin-left: 5% !important;
+  box-shadow: 2px 4px 5px #aaa;
+  height: 280rpx !important;
+  width: 90% !important;
+  padding: 0;
+}
+
+.orderstatusbar{
+  display: flex;
+  flex-direction: row;
+  height: 15% !important;
+}
+.datetext{
+  text-align: center;
+  margin-left: 20% ;
+}
+.orderinfopanel{
+  display: flex;
+  flex-direction: row;
+  height: 75% !important;
+  width: 100%;
+}
+.orderimg{
+  display: block;
+  padding: 3% !important;
+  width: 35% !important;
+  height: 160rpx !important;
+}
+
+.ordertext{
+  display: block;
+  margin-top:3%;
+  width: 30% !important;
+  height: 160rpx !important;
+}

@@ -1,0 +1,42 @@
+<!--pages/order/comment.wxml-->
+<van-nav-bar title="评论" title-class="navTitle" left-text="返回" left-arrow bind:click-left="onClickLeft" />
+<block wx:if="{{order_status=='settled'}}">
+  <form catchsubmit="formSubmit">
+    <view class="container">
+      <textarea style="width: 90%; height: 80%; " type="text"  name="input" placeholder="请输入文本" />
+    </view>
+    <scroll-view scroll-y style="height: {{scrollheight}}rpx; display: block;">
+      <view class="container" style="margin-top:0;padding-top: 20rpx;height: {{dishtypenum*280+30}}rpx;">
+        <block wx:for="{{dishinfolist}}" wx:key="index" >
+          <view class="dishcontainer">
+            <image class="dishimg" src="{{item.imgurl}}" mode="scaleToFill"></image>
+            <view class="ordertext">
+              <view>
+                <text style="font-weight: bold;">{{item.name}}</text>
+              </view>
+              <view style="margin-top: 35%;">
+                <van-rate
+                value="{{ 5 }}"
+                allow-half
+                void-icon="star"
+                void-color="#eee"
+                data-id="{{item.dishid}}"
+                bind:change="rating"/>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+    <view class="bottombar" style="position: absolute; left: 0rpx; bottom: 50rpx; ">
+      <view style="display: flex;flex-direction: row;width: 80%;margin-left: 10%;">
+        <van-button round type="primary" formType="submit" size="large" style="position: relative; font-size: normal; width: 250rpx; height: 100rpx; left: 146rpx; top: 0rpx">提交</van-button>
+      </view>
+    </view>
+  </form>
+</block>
+<block wx:if="{{order_status=='commented'}}">
+  <view class="container">
+      <textarea disabled style="width: 90%; height: 80%; " type="text">{{comment}}</textarea>
+    </view>
+</block>

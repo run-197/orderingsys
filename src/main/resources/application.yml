@@ -1,9 +1,9 @@
 server:
-    port: 8080
+  port: 8080
 
-
-appid: wxbc8520219ca144f4
-secret: 8afbc946b865bbebee2ee1068c6d0a29
+#需要获取自己的appid和secret填到下面
+appid:
+secret:
 grant_type: authorization_code
 
 spring:
@@ -11,7 +11,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/orderingsys?serverTimezone=GMT%2B8&useSSL=true
     username: root
-    password: runrun123
-#  75ed8a9517e06034
+    password:
 mybatis:
   mapper-locations: classpath:mapping/*.xml
