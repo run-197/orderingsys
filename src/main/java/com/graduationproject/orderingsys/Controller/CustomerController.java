@@ -2,6 +2,7 @@ package com.graduationproject.orderingsys.Controller;
 
 import com.alibaba.fastjson.JSON;
 
+import com.alibaba.fastjson.JSONObject;
 import com.graduationproject.orderingsys.DAO.Customer;
 import com.graduationproject.orderingsys.DAO.UserInfo;
 import com.graduationproject.orderingsys.Service.ServiceImpl.CustomerImpl;
@@ -42,11 +43,21 @@ public class CustomerController {
      */
     @RequestMapping("/getOpenID")
     @ResponseBody
-    public Object getOpenId(@RequestParam("code") String code) {
+    public String getOpenId(@RequestParam("code") String code) {
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + code + "&grant_type=" + grant_type;
         String data = HttpRequest.get(url);
-        return JSON.parse(data);
+        // 解析相应内容（转换成json对象）
+        JSONObject json = JSONObject.parseObject(data);
+        String openid = json.getString("openid");
+        return openid;
     }
+//    @RequestMapping("/getOpenID")
+//    @ResponseBody
+//    public Object getOpenId(@RequestParam("code") String code) {
+//        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + code + "&grant_type=" + grant_type;
+//        String data = HttpRequest.get(url);
+//        return JSON.parse(data);
+//    }
 
     @RequestMapping("/getCustomerinfo")
     @ResponseBody
@@ -71,7 +82,6 @@ public class CustomerController {
     @ResponseBody
     @CrossOrigin(origins = "*", maxAge = 3600)
     public String logIn(String username,String password){
-        System.out.println(username+' '+password);
         if(Objects.equals(username, "admin") && Objects.equals(password, "100518"))
             return "Admin";
         else if(Objects.equals(username, "assistant") && Objects.equals(password, "100518"))
@@ -86,17 +96,24 @@ public class CustomerController {
     public UserInfo getInfo(String token){
         UserInfo userInfo=new UserInfo();
         if(Objects.equals(token, "Admin")) {
-            userInfo.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+            userInfo.setAvatar("http://124.222.187.33:8233/img/avatar.png");
             userInfo.setIntroduction("管理员用户");
             userInfo.setName("管理员");
             userInfo.setRoles("admin");
         }
         else if(Objects.equals(token, "Assistant")) {
-            userInfo.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+            userInfo.setAvatar("http://124.222.187.33:8233/img/avatar.png");
             userInfo.setIntroduction("普通用户");
-            userInfo.setName("用户");
+            userInfo.setName("普通用户");
             userInfo.setRoles("editor");
         }
         return userInfo;
+    }
+
+    @RequestMapping("/manageloginout")
+    @ResponseBody
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public String logOut(){
+            return "success";
     }
 }

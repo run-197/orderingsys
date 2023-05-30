@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.graduationproject.orderingsys.Mapper.DishSalesMapper">
+
+    <insert id="addSalesrecord" parameterType="com.graduationproject.orderingsys.DAO.DishSales">
+        insert into  DishSales(dish_ID,sales_time,monthly_sales)
+        values (#{dish_ID},#{sales_time},#{monthly_sales});
+    </insert>
+
+    <select id="queryRecords" resultType="com.graduationproject.orderingsys.DAO.DishSaleshow">
+        SELECT Dish.dish_ID, Dish.name, DishSales.sales_time, DishSales.monthly_sales
+FROM Dish JOIN DishSales ON Dish.dish_ID = DishSales.dish_ID
+WHERE DishSales.sales_time = #{sales_time};
+    </select>
+    <select id="queryMonth" resultType="java.sql.Timestamp">
+        select distinct sales_time from  DishSales ;
+    </select>
+    <select id="getFigureDataBySalesTime" resultType="com.graduationproject.orderingsys.DAO.FigureData">
+      SELECT
+        d.the_type as name,
+        SUM(s.monthly_sales) as value
+      FROM
+        dish_type d
+        INNER JOIN dishsales s ON d.dish_ID = s.dish_ID
+      WHERE
+        s.sales_time = #{sales_time}
+      GROUP BY
+        d.the_type
+    </select>
+    <select id="getDishMonthlySales" resultType="com.graduationproject.orderingsys.DAO.FigureData">
+      SELECT d.dish_name AS name, s.monthly_sales AS value
+      FROM dish_type AS t
+        JOIN dish AS d ON t.dish_ID = d.dish_ID
+        JOIN dishsales AS s ON t.dish_ID = s.dish_ID
+      WHERE s.sales_time = #{sales_time} AND t.the_type = #{the_type}
+    </select>
+</mapper>

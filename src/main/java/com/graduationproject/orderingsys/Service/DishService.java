@@ -3,7 +3,9 @@ package com.graduationproject.orderingsys.Service;
 import com.graduationproject.orderingsys.DAO.AllDishOfType;
 import com.graduationproject.orderingsys.DAO.Dish;
 import com.graduationproject.orderingsys.DAO.Dish_picture;
+import com.graduationproject.orderingsys.DAO.FigureData;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -32,4 +34,6 @@ public interface DishService {
     boolean updateDishRating(Integer dish_ID,Float dish_rating);
     boolean delDish(Integer dish_ID);
     List<String> getAlltype();
+    List<FigureData> getMonthsales(Timestamp sales_time);
+    List<Timestamp> getMonth();
 }

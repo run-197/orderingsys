@@ -78,6 +78,6 @@ public class CustomerImpl implements CustomerService {
         customer.setCustomer_nickname(customer_nickname);
         customer.setPhone_number(phone_number);
         customer.setAvatar_address(avatar_address);
-        return customerMapper.addCustomer(customer)==1;
+        return customerMapper.updateCustomer(customer)==1;
     }
 }

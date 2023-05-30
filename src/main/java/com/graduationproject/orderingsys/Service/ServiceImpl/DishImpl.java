@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +25,8 @@ import java.util.Objects;
 public class DishImpl implements DishService {
 
     final
+    DishSalesMapper dishSalesMapper;
+    final
     Orderinfo_dishesMapper orderinfo_dishesMapper;
     final
     Dish_typeMapper dish_typeMapper;
@@ -34,12 +39,13 @@ public class DishImpl implements DishService {
     final
     DishMapper dishMapper;
 
-    public DishImpl(DishMapper dishMapper, Dish_pictureMapper dish_pictureMapper, AllDishOfTypeMapper allDishOfTypeMapper, Dish_typeMapper dish_typeMapper, Orderinfo_dishesMapper orderinfo_dishesMapper) {
+    public DishImpl(DishMapper dishMapper, Dish_pictureMapper dish_pictureMapper, AllDishOfTypeMapper allDishOfTypeMapper, Dish_typeMapper dish_typeMapper, Orderinfo_dishesMapper orderinfo_dishesMapper, DishSalesMapper dishSalesMapper) {
         this.dishMapper = dishMapper;
         this.dish_pictureMapper = dish_pictureMapper;
         this.allDishOfTypeMapper = allDishOfTypeMapper;
         this.dish_typeMapper = dish_typeMapper;
         this.orderinfo_dishesMapper = orderinfo_dishesMapper;
+        this.dishSalesMapper = dishSalesMapper;
     }
 
     @Override
@@ -242,6 +248,22 @@ public class DishImpl implements DishService {
     @Override
     @Scheduled(cron = "0 0 0 1 * ?")
     public void updateDishSales() {
+        // 获取当前日期
+        Calendar calendar = Calendar.getInstance();
+// 将小时、分钟、秒数设置为12:00:00
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+// 创建Timestamp对象
+        Timestamp timestamp = new Timestamp(calendar.getTimeInMillis());
+//       存储上月销量信息
+        List<Dish> dishList1=dishMapper.queryDish();
+        List<Dish> dishList = dishList1.subList(1, dishList1.size());
+        for (Dish dish:dishList) {
+            DishSales dishSales=new DishSales(dish.getDish_ID(),timestamp,dish.getMonthly_sales());
+            dishSalesMapper.addSalesrecord(dishSales);
+        }
         dishMapper.setSaleszero();
     }
 
@@ -276,5 +298,23 @@ public class DishImpl implements DishService {
     @Override
     public List<String> getAlltype() {
         return allDishOfTypeMapper.queryAllType();
+    }
+
+    @Override
+    public List<FigureData> getMonthsales(Timestamp sales_time) {
+        List<DishSaleshow> dishSaleshowList=dishSalesMapper.queryRecords(sales_time);
+        List<FigureData> figureDataList=new ArrayList<>();
+        for (DishSaleshow dishSaleshow:dishSaleshowList) {
+            FigureData figureData =new FigureData();
+            figureData.setValue(dishSaleshow.getMonthly_sales());
+            figureData.setName(dishSaleshow.getDish_name());
+            figureDataList.add(figureData);
+        }
+        return figureDataList;
+    }
+
+    @Override
+    public List<Timestamp> getMonth() {
+        return dishSalesMapper.queryMonth();
     }
 }

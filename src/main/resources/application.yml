@@ -12,6 +12,6 @@ spring:
     url: jdbc:mysql://localhost:3306/orderingsys?serverTimezone=GMT%2B8&useSSL=true
     username: root
     password: runrun123
-
+#  75ed8a9517e06034
 mybatis:
   mapper-locations: classpath:mapping/*.xml
